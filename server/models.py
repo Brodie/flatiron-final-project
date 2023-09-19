@@ -14,6 +14,18 @@ class User(db.Model):
     _password_hash = db.Column(db.String)
     placed_order = db.relationship("Work", back_populates="requested_by")
 
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("cannot access")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
+        self._password_hash = password_hash.decode("utf-8")
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
+
 
 class Employee(db.Model):
     __tablename__ = "employees"
@@ -23,6 +35,18 @@ class Employee(db.Model):
     username = db.Column(db.String, unique=True)
     _password_hash = db.Column(db.String)
     work_order = db.relationship("Work", back_populates="assigned_to")
+
+    @hybrid_property
+    def password_hash(self):
+        raise AttributeError("cannot access")
+
+    @password_hash.setter
+    def password_hash(self, password):
+        password_hash = bcrypt.generate_password_hash(password.encode("utf-8"))
+        self._password_hash = password_hash.decode("utf-8")
+
+    def authenticate(self, password):
+        return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
 
 
 class Work(db.Model):
