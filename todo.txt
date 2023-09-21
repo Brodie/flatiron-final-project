@@ -1,0 +1,26 @@
+MODELS:
+
+create model validations
+test models
+
+
+APP:
+
+create marshmallow schemas
+
+create views
+-- homepage
+-- post and patch routes
+-- get route
+-- delete route
+create authenticated views
+
+REACT:
+
+create homepage
+create navbar/hamburger menu
+-login/logout
+-CRUD work_order
+-email owner?
+create routes for form submissions
+
