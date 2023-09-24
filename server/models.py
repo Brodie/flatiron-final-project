@@ -3,6 +3,7 @@ from sqlalchemy.orm import validates
 from config import db, bcrypt, ma
 from sqlalchemy import CheckConstraint
 from sqlalchemy.exc import IntegrityError
+import re
 
 
 class User(db.Model):
@@ -26,6 +27,21 @@ class User(db.Model):
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
 
+    # Validations
+    @validates("name")
+    def valid_name(self, key, name):
+        pattern = r"^[A-Za-z]+ [A-Za-z]+$"
+        if not re.match(pattern, name):
+            raise ValueError("Invalid Name. Only letters and single space allowed")
+        return name
+
+    @validates("email")
+    def valid_email(self, key, email):
+        pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+        if not re.match(pattern, email):
+            raise ValueError("Invalid Email")
+        return email
+
 
 class Employee(db.Model):
     __tablename__ = "employees"
@@ -47,6 +63,13 @@ class Employee(db.Model):
 
     def authenticate(self, password):
         return bcrypt.check_password_hash(self._password_hash, password.encode("utf-8"))
+
+    @validates("name")
+    def valid_name(self, key, name):
+        pattern = r"^[A-Za-z]+ [A-Za-z]+$"
+        if not re.match(pattern, name):
+            raise ValueError("Invalid Name. Only letters and single space allowed")
+        return name
 
 
 class Work(db.Model):
