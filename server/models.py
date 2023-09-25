@@ -16,7 +16,7 @@ class User(db.Model):
     placed_order = db.relationship("Work", back_populates="requested_by")
 
     def __repr__(self):
-        return f"<User:{self.name}, ID:{self.id}"
+        return f"<User:{self.name}, ID:{self.id}>"
 
     @hybrid_property
     def password_hash(self):
@@ -56,7 +56,7 @@ class Employee(db.Model):
     work_order = db.relationship("Work", back_populates="assigned_to")
 
     def __repr__(self):
-        return f"<Emp:{self.name}, ID:{self.id}"
+        return f"<Emp:{self.name}, ID:{self.id}>"
 
     @hybrid_property
     def password_hash(self):
@@ -92,4 +92,4 @@ class Work(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
     def __repr__(self):
-        return f"<Work Order ID:{self.id}"
+        return f"<Work Order ID:{self.id}>"
