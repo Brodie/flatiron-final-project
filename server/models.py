@@ -15,6 +15,9 @@ class User(db.Model):
     _password_hash = db.Column(db.String)
     placed_order = db.relationship("Work", back_populates="requested_by")
 
+    def __repr__(self):
+        return f"<User:{self.name}, ID:{self.id}"
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError("cannot access")
@@ -52,6 +55,9 @@ class Employee(db.Model):
     _password_hash = db.Column(db.String)
     work_order = db.relationship("Work", back_populates="assigned_to")
 
+    def __repr__(self):
+        return f"<Emp:{self.name}, ID:{self.id}"
+
     @hybrid_property
     def password_hash(self):
         raise AttributeError("cannot access")
@@ -84,3 +90,6 @@ class Work(db.Model):
 
     employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+    def __repr__(self):
+        return f"<Work Order ID:{self.id}"
