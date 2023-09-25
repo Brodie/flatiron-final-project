@@ -76,6 +76,7 @@ class Work(db.Model):
     __tablename__ = "work_orders"
 
     id = db.Column(db.Integer, primary_key=True)
+    info = db.Column(db.String, nullable=False)
     requested_by = db.relationship("User", back_populates="placed_order")
     assigned_to = db.relationship("Employee", back_populates="work_order")
     created_at = db.Column(db.DateTime, server_default=db.func.now())
