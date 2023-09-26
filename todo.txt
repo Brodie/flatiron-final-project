@@ -10,6 +10,8 @@ APP:
 ✓create marshmallow schemas
 
 create views
+✓ login/logout
+✓ signup
 -- homepage
 -- post and patch routes
 -- get route
