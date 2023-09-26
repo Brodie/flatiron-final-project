@@ -1,18 +1,20 @@
+--todo ✓
 MODELS:
 
-create model validations
-test models
+✓create model validations
+✓test models
 
 
 APP:
 
-create marshmallow schemas
+✓create marshmallow schemas
 
 create views
 -- homepage
 -- post and patch routes
 -- get route
 -- delete route
+-- test routes in postman
 create authenticated views
 
 REACT:
