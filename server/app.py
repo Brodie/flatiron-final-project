@@ -54,16 +54,36 @@ class Signup(Resource):
             return {"message": "invalid email"}, 422
 
         user = User(name=json.get("name"), email=json.get("email"))
-        user.password_hash = json.get("password")
+
+        if json.get("password") == json.get("confirm_pass"):
+            user.password_hash = json.get("password")
+        else:
+            return {"error": "passwords do not match"}, 422
 
         if not user:
             return {"message": "invalid user info"}, 422
 
-        db.session.add(user)
-        db.session.commit()
+        try:
+            db.session.add(user)
+            db.session.commit()
 
-        session["user_id"] = user.id
-        return single_user_schema.dump(user), 201
+            session["user_id"] = user.id
+            return single_user_schema.dump(user), 201
+        except IntegrityError as e:
+            # Error handling
+
+            errors = []
+            keys = ["name", "password", "confirm_pass"]
+
+            for key in keys:
+                if not json[key]:
+                    errors.append(f"{key} is required")
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
 
 
 class Login(Resource):
@@ -72,11 +92,14 @@ class Login(Resource):
 
         user = User.query.filter(User.email == user_info.get("email")).first()
 
+        if not user:
+            return {"error": "user not found"}, 404
+
         if user and user.authenticate(user_info.get("password")):
             session["user_id"] = user.id
             return single_user_schema.dump(user), 200
-
-        return {}, 401
+        else:
+            return {"error": "password incorrect"}, 401
 
 
 class Logout(Resource):
