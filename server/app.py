@@ -10,33 +10,51 @@ from random import choice as rc
 class UserSchema(ma.SQLAlchemySchema):
     class Meta:
         model = User
-        exclude = ("_password_hash",)
 
+    id = ma.auto_field()
+    name = ma.auto_field()
+    email = ma.auto_field()
+    _password_hash = ma.auto_field()
     placed_order = ma.Nested("WorkSchema", many=True, exclude=("requested_by",))
 
 
-single_user_schema = UserSchema()
-plural_user_schema = UserSchema(many=True)
+single_user_schema = UserSchema(only=("id", "name", "email", "placed_order"))
+plural_user_schema = UserSchema(only=("id", "name", "email", "placed_order"), many=True)
 
 
 class EmployeeSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Employee
-        exclude = ("_password_hash",)
 
+    id = ma.auto_field()
+    name = ma.auto_field()
+    username = ma.auto_field()
+    admin = ma.auto_field()
+    _password_hash = ma.auto_field()
     work_order = ma.Nested("WorkSchema", many=True, exclude=("assigned_to",))
 
 
-single_emp_schema = EmployeeSchema()
-plural_emp_schema = EmployeeSchema(many=True)
+single_emp_schema = EmployeeSchema(
+    only=("id", "name", "username", "admin", "work_order")
+)
+plural_emp_schema = EmployeeSchema(
+    only=("id", "name", "username", "admin", "work_order"), many=True
+)
 
 
 class WorkSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Work
 
+    id = ma.auto_field()
+    info = ma.auto_field()
     requested_by = ma.Nested("UserSchema", only=("id", "name", "email"))
     assigned_to = ma.Nested("EmployeeSchema", only=("id", "name", "username"))
+    created_at = ma.auto_field()
+    completed = ma.auto_field()
+    completed_at = ma.auto_field()
+    employee_id = ma.auto_field()
+    user_id = ma.auto_field()
 
 
 single_work_schema = WorkSchema()
@@ -163,10 +181,10 @@ class CheckSession(Resource):
 
 
 api.add_resource(CheckSession, "/check_session")
-api.add_resource(WorkOrderById, "work_order/<int:id>")
+api.add_resource(WorkOrderById, "/work_order/<int:id>")
 api.add_resource(WorkOrders, "/work_order")
 api.add_resource(Login, "/login")
-api.add_resource(Logout, "logout")
+api.add_resource(Logout, "/logout")
 api.add_resource(Signup, "/signup")
 
 if __name__ == "__main__":
