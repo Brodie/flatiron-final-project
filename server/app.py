@@ -109,6 +109,27 @@ class Logout(Resource):
         return {}, 401
 
 
+class WorkOrders(Resource):
+    def get(self):
+        pass
+
+    def post(self):
+        pass
+
+
+class WorkOrderById(Resource):
+    def get(self, id):
+        pass
+
+    def patch(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+
+
+api.add_resource(WorkOrderById, "work_order/<int:id>")
+api.add_resource(WorkOrders, "/work_order")
 api.add_resource(Login, "/login")
 api.add_resource(Logout, "logout")
 api.add_resource(Signup, "/signup")
