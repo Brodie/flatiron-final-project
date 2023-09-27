@@ -3,6 +3,9 @@ MODELS:
 
 ✓create model validations
 ✓test models
+-add comments to work order
+-add image to work order
+-add image model
 
 
 APP:
@@ -23,6 +26,7 @@ REACT:
 
 create homepage
 create navbar/hamburger menu
+--- fetch to check_session, if logged dynamically render login or logout
 -login/logout
 -CRUD work_order
 -email owner?
