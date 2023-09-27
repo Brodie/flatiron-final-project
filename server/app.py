@@ -111,7 +111,8 @@ class Logout(Resource):
 
 class WorkOrders(Resource):
     def get(self):
-        pass
+        work_orders = [single_work_schema.dump(work) for work in Work.query.all()]
+        return {"work_orders": work_orders}, 200
 
     def post(self):
         pass
