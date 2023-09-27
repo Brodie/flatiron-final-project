@@ -118,11 +118,10 @@ class WorkOrders(Resource):
     def post(self):
         data = request.get_json()
 
-        emps = [emp.id for emp in Employee.query.all()]
+        emps = Employee.query.all()
+        user = User.query.filter(User.id == session["user_id"]).first()
 
-        wo = Work(
-            info=data.get("info"), user_id=session["user_id"], employee_id=rc(emps)
-        )
+        wo = Work(info=data.get("info"), created_by=user, assigned_to=rc(emps))
 
         try:
             db.session.add(wo)
