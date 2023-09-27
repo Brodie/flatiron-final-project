@@ -4,6 +4,7 @@ from sqlalchemy.exc import IntegrityError
 
 from config import app, db, api, ma
 from models import User, Employee, Work
+from random import choice as rc
 
 
 class UserSchema(ma.SQLAlchemySchema):
@@ -115,7 +116,30 @@ class WorkOrders(Resource):
         return {"work_orders": work_orders}, 200
 
     def post(self):
-        pass
+        data = request.get_json()
+
+        emps = [emp.id for emp in Employee.query.all()]
+
+        wo = Work(
+            info=data.get("info"), user_id=session["user_id"], employee_id=rc(emps)
+        )
+
+        try:
+            db.session.add(wo)
+            db.session.commit()
+            return single_work_schema.dump(wo), 201
+
+        except IntegrityError as e:
+            errors = []
+
+            if not data.get("info"):
+                errors.append("Please include work info")
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
 
 
 class WorkOrderById(Resource):
