@@ -152,6 +152,17 @@ class WorkOrderById(Resource):
         pass
 
 
+class CheckSession(Resource):
+    def get(self):
+        user = User.query.filter(User.id == session.get("user_id")).first()
+
+        if user:
+            return single_user_schema.dump(user), 200
+        else:
+            return {}, 401
+
+
+api.add_resource(CheckSession, "/check_session")
 api.add_resource(WorkOrderById, "work_order/<int:id>")
 api.add_resource(WorkOrders, "/work_order")
 api.add_resource(Login, "/login")
