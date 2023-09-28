@@ -74,7 +74,7 @@ class Signup(Resource):
 
         user = User(name=json.get("name"), email=json.get("email"))
 
-        if json.get("password") == json.get("confirm_pass"):
+        if json.get("password") == json.get("passConfirm"):
             user.password_hash = json.get("password")
         else:
             return {"error": "passwords do not match"}, 422
@@ -92,7 +92,7 @@ class Signup(Resource):
             # Error handling
 
             errors = []
-            keys = ["name", "password", "confirm_pass"]
+            keys = ["name", "password", "passConfirm"]
 
             for key in keys:
                 if not json[key]:
