@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function Authenticate() {
+function Authenticate({ updateUser }) {
   const location = useLocation();
   const { isEmployee } = location.state;
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
+  const [signUp, setSignUp] = useState(false);
 
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
@@ -28,7 +30,7 @@ function Authenticate() {
     },
     validationSchema: formSchema,
     onSubmit: (values) => {
-      fetch("/login", {
+      fetch(signUp ? "/signup" : "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,12 +43,104 @@ function Authenticate() {
             updateUser(user);
             navigate("/");
           });
+        } else {
+          res.json().then((err) => {
+            setTimeout(() => {
+              setErrors([]);
+            }, 4000);
+            setErrors(err.errors);
+          });
         }
       });
     },
   });
 
-  return <div>Authenticate: {isEmployee ? "true" : "false"}</div>;
+  return (
+    <>
+      <form onSubmit={formik.handleSubmit}>
+        {isEmployee ? (
+          <>
+            <label htmlFor="username">Username</label>
+            <br />
+            <input
+              id="username"
+              name="username"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.username}
+            />
+          </>
+        ) : (
+          <>
+            <label htmlFor="email">Email</label>
+            <br />
+            <input
+              id="email"
+              name="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+          </>
+        )}
+        <br />
+        <>
+          <label htmlFor="password">Password</label>
+          <br />
+          <input
+            id="password"
+            name="password"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
+          />
+        </>
+        <br />
+        <>
+          <label htmlFor="passConfirm">Re-Enter Password</label>
+          <br />
+          <input
+            id="passConfirm"
+            name="passConfirm"
+            type="password"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.passConfirm}
+          />
+        </>
+        <div style={{ color: "red" }}>
+          <>
+            {isEmployee ? (
+              <>
+                {formik.errors.username ? (
+                  <p>{formik.errors.username}</p>
+                ) : null}
+              </>
+            ) : (
+              <>{formik.errors.email ? <p>{formik.errors.email}</p> : null}</>
+            )}
+          </>
+          <>{formik.errors.password ? <p>{formik.errors.password}</p> : null}</>
+          <>
+            {formik.errors.passConfirm ? (
+              <p>{formik.errors.passConfirm}</p>
+            ) : null}
+          </>
+        </div>
+        <input type="submit" value={signUp ? "Sign Up" : "Login"} />
+      </form>
+
+      {isEmployee ? null : (
+        <div>
+          <h3>{signUp ? "Already a member?" : "Not a member?"}</h3>
+          <button onClick={() => setSignUp((prev) => !prev)}>
+            {signUp ? "Login" : "Sign-up"}
+          </button>
+        </div>
+      )}
+    </>
+  );
 }
 
 export default Authenticate;
