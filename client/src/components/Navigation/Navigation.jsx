@@ -17,6 +17,9 @@ function Navigation({ user }) {
             <li className="close" onClick={() => setMenu(!menu)}>
               x
             </li>
+            <li>
+              <Link to="/">Main Menu</Link>
+            </li>
             {/* dynamically render based on session */}
             {user ? (
               <>
