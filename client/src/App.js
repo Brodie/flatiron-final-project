@@ -11,6 +11,8 @@ function App() {
   const [work, setWork] = useState([]);
   const [user, setUser] = useState(null);
 
+  const updateUser = (user) => setUser(user);
+
   useEffect(() => {
     fetch("/check_session").then((res) => {
       if (res.ok) {
@@ -36,7 +38,7 @@ function App() {
           path={"/authenticate"}
           element={
             <div>
-              <Authenticate />
+              <Authenticate updateUser={updateUser} />
             </div>
           }
         />
