@@ -1,7 +1,10 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 function Authenticate() {
-  return <div>Authenticate</div>;
+  const location = useLocation();
+  const { isEmployee } = location.state;
+  return <div>Authenticate: {isEmployee ? "true" : "false"}</div>;
 }
 
 export default Authenticate;

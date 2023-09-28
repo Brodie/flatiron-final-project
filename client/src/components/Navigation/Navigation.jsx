@@ -32,11 +32,18 @@ function Navigation({ user }) {
               </>
             ) : (
               <li>
-                <Link to="/authenticate">Login/Signup</Link>
+                <Link to="/authenticate" state={{ isEmployee: false }}>
+                  Login/Signup
+                </Link>
               </li>
             )}
             <li>
               <Link to="/work_order/complete">Completed Work</Link>
+            </li>
+            <li>
+              <Link to="/authenticate" state={{ isEmployee: true }}>
+                Employee Portal
+              </Link>
             </li>
           </ul>
         ) : (
