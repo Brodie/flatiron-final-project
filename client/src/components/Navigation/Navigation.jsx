@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavStyle.css";
 
-function Navigation() {
+function Navigation({ user }) {
   const [menu, setMenu] = useState(false);
   const toggleMenu = () => setMenu((prev) => !prev);
 
@@ -17,18 +17,23 @@ function Navigation() {
             <li className="close" onClick={() => setMenu(!menu)}>
               x
             </li>
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
             {/* dynamically render based on session */}
+            {user ? (
+              <>
+                <li>
+                  <Link to="/home">Home</Link>
+                </li>
+                <li>
+                  <Link to="/work_order/new">Submit Work Order</Link>
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/authenticate">Login/Signup</Link>
+              </li>
+            )}
             <li>
-              <Link to="/authenticate">Login/Signup</Link>
-            </li>
-            <li>
-              <Link to="/complete">Completed Work</Link>
-            </li>
-            <li>
-              <Link to="/work_order/new">Submit Work Order</Link>
+              <Link to="/work_order/complete">Completed Work</Link>
             </li>
           </ul>
         ) : (
