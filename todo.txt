@@ -1,4 +1,10 @@
 --todo ✓
+
+next sesh:
+build out authenticate form using formik
+test form
+
+
 MODELS:
 
 ✓create model validations
@@ -15,6 +21,7 @@ APP:
 create views
 ✓ login/logout
 ✓ signup
+-- employee sign in
 -- homepage
 -- post and patch routes
 -- get route
