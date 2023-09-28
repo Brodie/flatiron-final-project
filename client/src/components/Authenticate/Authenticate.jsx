@@ -84,6 +84,21 @@ function Authenticate({ updateUser }) {
           </>
         )}
         <br />
+        {signUp ? (
+          <>
+            <label htmlFor="name">Name</label>
+            <br />
+            <input
+              id="name"
+              name="name"
+              type="name"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.name}
+            />
+            <br />
+          </>
+        ) : null}
         <>
           <label htmlFor="password">Password</label>
           <br />
@@ -128,7 +143,7 @@ function Authenticate({ updateUser }) {
             ) : null}
           </>
         </div>
-        <input type="submit" value={signUp ? "Sign Up" : "Login"} />
+        <button type="submit">{signUp ? "Sign Up" : "Login"}</button>
       </form>
 
       {isEmployee ? null : (
