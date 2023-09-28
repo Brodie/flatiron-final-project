@@ -109,6 +109,20 @@ class Login(Resource):
     def post(self):
         user_info = request.get_json()
 
+        #  check if employee is sending request
+        if user_info.get("username"):
+            emp = Employee.query.filter(
+                Employee.username == user_info["username"]
+            ).first()
+            if not emp:
+                return {"error": "employee does not exist"}
+            if emp and emp.authenticate(user_info.get("password")):
+                session["user_id"] = emp.id
+                return single_emp_schema.dump(emp), 200
+            else:
+                return {"error": "password incorrect"}, 401
+
+        # user sending request
         user = User.query.filter(User.email == user_info.get("email")).first()
 
         if not user:
