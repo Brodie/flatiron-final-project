@@ -6,6 +6,9 @@ from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_marshmallow import Marshmallow
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 
