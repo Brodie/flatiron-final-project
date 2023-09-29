@@ -150,8 +150,13 @@ class WorkOrders(Resource):
 
     def post(self):
         data = request.get_json()
-
-        emps = Employee.query.all()
+        #
+        # change this before deploying
+        # either add admin role that can create employees from front end
+        # or create an admin employee to assign work to
+        #
+        # using test employee to test frontend
+        emps = Employee.query.filter(Employee.username == "brodie")
         user = User.query.filter(User.id == session["user_id"]).first()
 
         wo = Work(info=data.get("info"), created_by=user, assigned_to=rc(emps))
