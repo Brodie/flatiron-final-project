@@ -4,13 +4,16 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 
 function Authenticate({ handleModelCheck }) {
+  // useLocation to determine if employee portal or signup/login was clicked
   const location = useLocation();
   const { isEmployee } = location.state;
+
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [signUp, setSignUp] = useState(false);
 
   const formSchema = yup.object().shape({
+    // if employee login email not needed
     email: isEmployee
       ? yup.string().optional()
       : yup.string().email("Invalid email").required("Must enter email"),
@@ -23,6 +26,7 @@ function Authenticate({ handleModelCheck }) {
       ? yup.string().required("Username required")
       : yup.string().optional(),
     password: yup.string().required("Password required"),
+    // if logging in passConfirm not needed
     passConfirm: signUp
       ? yup.string().optional()
       : yup.string().oneOf([yup.ref("password")], "Passwords must match"),
