@@ -54,7 +54,7 @@ function Authenticate({ updateUser }) {
             setTimeout(() => {
               setErrors([]);
             }, 4000);
-            setErrors(err.errors);
+            setErrors([...errors, err.errors]);
           });
         }
       });
@@ -153,6 +153,14 @@ function Authenticate({ updateUser }) {
         </div>
         <button type="submit">{signUp ? "Sign Up" : "Login"}</button>
       </form>
+
+      <h2>
+        {errors.map((err) => (
+          <p key={err} style={{ color: "red" }}>
+            {err}
+          </p>
+        ))}
+      </h2>
 
       {isEmployee ? null : (
         <div>
