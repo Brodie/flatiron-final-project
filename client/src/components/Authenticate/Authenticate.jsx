@@ -12,8 +12,14 @@ function Authenticate({ updateUser }) {
 
   const formSchema = yup.object().shape({
     email: yup.string().email("Invalid email").required("Must enter email"),
-    name: yup.string().required("Name required"),
-    username: yup.string().required("Username required"),
+    // control whether name is required or not
+    name: signUp
+      ? yup.string().required("Name required")
+      : yup.string().optional(),
+    // dynamically control whether username must be included or not
+    username: isEmployee
+      ? yup.string().required("Username required")
+      : yup.string().optional(),
     password: yup.string().required("Password required"),
     passConfirm: yup
       .string()
