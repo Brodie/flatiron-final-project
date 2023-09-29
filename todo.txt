@@ -1,6 +1,7 @@
 --todo ✓
 
 next sesh:
+nav changes based on employee being logged in
 create work order cards
 /home render owned work_orders
 work order form
