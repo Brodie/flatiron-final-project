@@ -25,7 +25,7 @@ function Navigation({ user, updateUser }) {
         {menu ? (
           <ul>
             <li className="close" onClick={() => setMenu(!menu)}>
-              x
+              <Link>x</Link>
             </li>
             <li>
               <Link to="/">Main Menu</Link>
@@ -53,11 +53,13 @@ function Navigation({ user, updateUser }) {
             <li>
               <Link to="/work_order/complete">Completed Work</Link>
             </li>
-            <li>
-              <Link to="/authenticate" state={{ isEmployee: true }}>
-                Employee Portal
-              </Link>
-            </li>
+            {user ? null : (
+              <li>
+                <Link to="/authenticate" state={{ isEmployee: true }}>
+                  Employee Portal
+                </Link>
+              </li>
+            )}
           </ul>
         ) : (
           <div className="hamburger-menu" onClick={toggleMenu}>
