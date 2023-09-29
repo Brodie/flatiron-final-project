@@ -1,9 +1,10 @@
 --todo ✓
 
 next sesh:
-build out authenticate form using forb mik
-test form
-
+create work order cards
+/home render owned work_orders
+work order form
+/completed_work to view all work orders
 
 MODELS:
 
@@ -12,6 +13,7 @@ MODELS:
 -add comments to work order
 -add image to work order
 -add image model
+-add images
 
 
 APP:
@@ -21,20 +23,19 @@ APP:
 create views
 ✓ login/logout
 ✓ signup
--- employee sign in
+✓ employee sign in
 -- homepage
--- post and patch routes
--- get route
--- delete route
--- test routes in postman
+-- "/" load images from db
+-✓ test routes in postman
+
 create authenticated views
 
 REACT:
 
 create homepage
-create navbar/hamburger menu
---- fetch to check_session, if logged dynamically render login or logout
--login/logout
+✓create navbar/hamburger menu
+✓--- fetch to check_session, if logged dynamically render login or logout
+✓login/logout
 -CRUD work_order
 -email owner?
 create routes for form submissions
