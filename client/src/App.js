@@ -10,14 +10,22 @@ import WorkForm from "./components/WorkForm/WorkForm";
 function App() {
   const [work, setWork] = useState([]);
   const [user, setUser] = useState(null);
+  const [emp, setEmp] = useState(null);
 
   const updateUser = (user) => setUser(user);
+  const handleSessionCheck = (obj) => {
+    if (obj["username"]) {
+      setEmp(obj);
+    } else {
+      setUser(obj);
+    }
+  };
 
   useEffect(() => {
     fetch("/check_session").then((res) => {
       if (res.ok) {
         res.json().then((user) => {
-          setUser(user);
+          handleSessionCheck(user);
         });
       }
     });
