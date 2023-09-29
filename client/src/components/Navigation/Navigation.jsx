@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavStyle.css";
 
-function Navigation({ user, updateUser }) {
+function Navigation({ user, updateUser, emp, updateEmp }) {
   const [menu, setMenu] = useState(false);
   const toggleMenu = () => setMenu((prev) => !prev);
 
@@ -14,6 +14,7 @@ function Navigation({ user, updateUser }) {
     }).then((r) => {
       if (r.ok) {
         updateUser(null);
+        updateEmp(null);
       }
     });
   };
@@ -31,17 +32,21 @@ function Navigation({ user, updateUser }) {
               <Link to="/">Main Menu</Link>
             </li>
             <li>
-              <Link to="/work_order/complete">Our Completed Work</Link>
+              <Link to="/work_order/complete">
+                {emp ? "My Complete Work" : "Our Completed Work"}
+              </Link>
             </li>
-            {/* dynamically render based on session */}
-            {user ? (
+
+            {user || emp ? (
               <>
                 <li>
-                  <Link to="/home">Home</Link>
+                  <Link to="/home">{emp ? "My Jobs" : "Home"}</Link>
                 </li>
-                <li>
-                  <Link to="/work_order/new">Submit Work Order</Link>
-                </li>
+                {emp ? null : (
+                  <li>
+                    <Link to="/work_order/new">Submit Work Order</Link>
+                  </li>
+                )}
                 <li>
                   <Link onClick={handleLogout}>Logout</Link>
                 </li>
@@ -53,7 +58,7 @@ function Navigation({ user, updateUser }) {
                 </Link>
               </li>
             )}
-            {user ? null : (
+            {user || emp ? null : (
               <li>
                 <Link to="/authenticate" state={{ isEmployee: true }}>
                   Employee Portal

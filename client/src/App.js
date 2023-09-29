@@ -13,6 +13,7 @@ function App() {
   const [emp, setEmp] = useState(null);
 
   const updateUser = (user) => setUser(user);
+  const updateEmp = (emp) => setEmp(emp);
   const handleSessionCheck = (obj) => {
     if (obj["username"]) {
       setEmp(obj);
@@ -25,6 +26,7 @@ function App() {
     fetch("/check_session").then((res) => {
       if (res.ok) {
         res.json().then((user) => {
+          console.log(user);
           handleSessionCheck(user);
         });
       }
@@ -33,7 +35,12 @@ function App() {
 
   return (
     <>
-      <Navigation user={user} updateUser={updateUser} />
+      <Navigation
+        user={user}
+        updateUser={updateUser}
+        emp={emp}
+        updateEmp={updateEmp}
+      />
       <Routes>
         <Route
           path={"/home"}
