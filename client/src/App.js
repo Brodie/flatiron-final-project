@@ -31,7 +31,7 @@ function App() {
           path={"/home"}
           element={
             <div>
-              <Home />
+              <Home user={user} work={work} setWork={setWork} />
             </div>
           }
         />
@@ -47,7 +47,7 @@ function App() {
           path={"/work_order/complete"}
           element={
             <div>
-              <WorkContainer />
+              <WorkContainer work={work} />
             </div>
           }
         />
@@ -55,7 +55,7 @@ function App() {
           path={"/work_order/new"}
           element={
             <div>
-              <WorkForm />
+              <WorkForm user={user} />
             </div>
           }
         />
