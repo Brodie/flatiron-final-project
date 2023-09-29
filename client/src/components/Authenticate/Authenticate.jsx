@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function Authenticate({ updateUser }) {
+function Authenticate({ handleModelCheck }) {
   const location = useLocation();
   const { isEmployee } = location.state;
   const navigate = useNavigate();
@@ -47,8 +47,8 @@ function Authenticate({ updateUser }) {
         body: JSON.stringify(values, null, 2),
       }).then((res) => {
         if (res.ok) {
-          res.json().then((user) => {
-            updateUser(user);
+          res.json().then((model) => {
+            handleModelCheck(model);
             navigate("/home");
           });
         } else {

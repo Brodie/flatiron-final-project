@@ -14,7 +14,8 @@ function App() {
 
   const updateUser = (user) => setUser(user);
   const updateEmp = (emp) => setEmp(emp);
-  const handleSessionCheck = (obj) => {
+
+  const handleModelCheck = (obj) => {
     if (obj["username"]) {
       setEmp(obj);
     } else {
@@ -27,7 +28,7 @@ function App() {
       if (res.ok) {
         res.json().then((user) => {
           console.log(user);
-          handleSessionCheck(user);
+          handleModelCheck(user);
         });
       }
     });
@@ -54,7 +55,7 @@ function App() {
           path={"/authenticate"}
           element={
             <div>
-              <Authenticate updateUser={updateUser} />
+              <Authenticate handleModelCheck={handleModelCheck} />
             </div>
           }
         />
