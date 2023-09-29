@@ -16,6 +16,8 @@ marshmallow-sqlalchemy = "*"
 ipdb = "*"
 python-dotenv = "*"
 flask-cors = "*"
+flask-file-upload = "*"
+flask-wtf = "*"
 
 [dev-packages]
 
