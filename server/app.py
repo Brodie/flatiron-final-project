@@ -138,6 +138,7 @@ class Login(Resource):
 class Logout(Resource):
     def delete(self):
         session["user_id"] = None
+        session["emp_id"] = None
 
         return {}, 202
 
