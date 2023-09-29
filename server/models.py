@@ -4,6 +4,9 @@ from config import db, bcrypt, ma
 from sqlalchemy import CheckConstraint
 from sqlalchemy.exc import IntegrityError
 import re
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
 
 
 class User(db.Model):
@@ -106,3 +109,10 @@ class Work(db.Model):
 
     def __repr__(self):
         return f"<Work Order ID:{self.id}>"
+
+
+class Image(FlaskForm):
+    __tablename__ = "Image"
+
+    id = db.Column(db.Integer, primary_key=True)
+    file_path = db.Column(db.String, nullable=False)

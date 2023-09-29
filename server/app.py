@@ -1,6 +1,8 @@
+import os
 from flask import request, session
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
+from werkzeug.utils import secure_filename
 
 from config import app, db, api, ma
 from models import User, Employee, Work
@@ -158,6 +160,15 @@ class WorkOrders(Resource):
         # using test employee to test frontend
         emps = Employee.query.filter(Employee.username == "brodie")
         user = User.query.filter(User.id == session["user_id"]).first()
+
+        #  handling file uploads
+        uploaded_file = request.files.get("image")
+        filename = secure_filename(uploaded_file.filename)
+        if filename:
+            file_ext = os.path.splitext(filename)[1]
+            if file_ext not in app.config["UPLOAD_EXTENSIONS"]:
+                return {"error": "File type not supported"}, 400
+            uploaded_file.save(os.path.join(app.config["UPLOAD_PATH"], filename))
 
         wo = Work(info=data.get("info"), created_by=user, assigned_to=rc(emps))
 
