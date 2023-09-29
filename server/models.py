@@ -111,8 +111,9 @@ class Work(db.Model):
         return f"<Work Order ID:{self.id}>"
 
 
-class Image(FlaskForm):
+class Image(db.Model):
     __tablename__ = "Image"
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
     file_path = db.Column(db.String, nullable=False)

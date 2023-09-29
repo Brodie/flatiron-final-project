@@ -1,12 +1,22 @@
 import os
-from flask import request, session
+import imghdr
+from flask import request, session, send_from_directory
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 
 from config import app, db, api, ma
-from models import User, Employee, Work
+from models import User, Employee, Work, Image
 from random import choice as rc
+
+
+def validate_image(stream):
+    header = stream.read(512)
+    stream.seek(0)
+    format = imghdr.what(None, header)
+    if not format:
+        return None
+    return "." + (format if format != "jpeg" else "jpg")
 
 
 class UserSchema(ma.SQLAlchemySchema):
@@ -166,11 +176,18 @@ class WorkOrders(Resource):
         filename = secure_filename(uploaded_file.filename)
         if filename:
             file_ext = os.path.splitext(filename)[1]
-            if file_ext not in app.config["UPLOAD_EXTENSIONS"]:
+            if file_ext not in app.config[
+                "UPLOAD_EXTENSIONS"
+            ] or file_ext != validate_image(uploaded_file.stream):
                 return {"error": "File type not supported"}, 400
             uploaded_file.save(os.path.join(app.config["UPLOAD_PATH"], filename))
 
-        wo = Work(info=data.get("info"), created_by=user, assigned_to=rc(emps))
+            img = Image(name=data.get("image_name"), file_path=filename)
+            db.session.add(img)
+            db.session.commit()
+            # now need to assign the image to the work obj
+
+        wo = Work(info=data.get("info"), created_by=user, assigned_to=emps)
 
         try:
             db.session.add(wo)
@@ -213,6 +230,13 @@ class CheckSession(Resource):
             return single_user_schema.dump(user), 200
         else:
             return {}, 401
+
+
+class Images(Resource):
+    def get(self, id):
+        img = Image.query.filter(Image.id == id).first()
+        path = img.file_path
+        return send_from_directory(app.config["UPLOAD_PATH"], path)
 
 
 api.add_resource(CheckSession, "/check_session")
