@@ -139,7 +139,7 @@ class Logout(Resource):
     def delete(self):
         session["user_id"] = None
 
-        return {}, 401
+        return {}, 202
 
 
 class WorkOrders(Resource):
