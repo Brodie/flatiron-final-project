@@ -21,7 +21,8 @@ function App() {
         });
       }
     });
-  });
+  }),
+    [];
   return (
     <>
       <Navigation user={user} />
