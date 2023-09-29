@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-      <Navigation user={user} />
+      <Navigation user={user} updateUser={updateUser} />
       <Routes>
         <Route
           path={"/home"}
@@ -59,6 +59,7 @@ function App() {
             </div>
           }
         />
+        <Route path={"/"} element={<div>hello</div>} />
       </Routes>
     </>
   );

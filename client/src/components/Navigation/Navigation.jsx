@@ -4,9 +4,19 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./NavStyle.css";
 
-function Navigation({ user }) {
+function Navigation({ user, updateUser }) {
   const [menu, setMenu] = useState(false);
   const toggleMenu = () => setMenu((prev) => !prev);
+
+  const handleLogout = () => {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        updateUser(null);
+      }
+    });
+  };
 
   return (
     <div className="nav">
@@ -28,6 +38,9 @@ function Navigation({ user }) {
                 </li>
                 <li>
                   <Link to="/work_order/new">Submit Work Order</Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogout}>Logout</Link>
                 </li>
               </>
             ) : (
