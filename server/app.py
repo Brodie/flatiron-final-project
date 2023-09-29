@@ -77,7 +77,7 @@ class Signup(Resource):
         if json.get("password") == json.get("passConfirm"):
             user.password_hash = json.get("password")
         else:
-            return {"error": "passwords do not match"}, 422
+            return {"errors": "passwords do not match"}, 422
 
         if not user:
             return {"message": "invalid user info"}, 422
@@ -115,24 +115,24 @@ class Login(Resource):
                 Employee.username == user_info["username"]
             ).first()
             if not emp:
-                return {"error": "employee does not exist"}
+                return {"errors": "employee does not exist"}
             if emp and emp.authenticate(user_info.get("password")):
                 session["user_id"] = emp.id
                 return single_emp_schema.dump(emp), 200
             else:
-                return {"error": "password incorrect"}, 401
+                return {"errors": "password incorrect"}, 401
 
         # user sending request
         user = User.query.filter(User.email == user_info.get("email")).first()
 
         if not user:
-            return {"error": "user not found"}, 404
+            return {"errors": "user not found"}, 404
 
         if user and user.authenticate(user_info.get("password")):
             session["user_id"] = user.id
             return single_user_schema.dump(user), 200
         else:
-            return {"error": "password incorrect"}, 401
+            return {"errors": "password incorrect"}, 401
 
 
 class Logout(Resource):
