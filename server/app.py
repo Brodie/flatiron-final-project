@@ -117,7 +117,7 @@ class Login(Resource):
             if not emp:
                 return {"errors": "employee does not exist"}
             if emp and emp.authenticate(user_info.get("password")):
-                session["user_id"] = emp.id
+                session["emp_id"] = emp.id
                 return single_emp_schema.dump(emp), 200
             else:
                 return {"errors": "password incorrect"}, 401
@@ -186,6 +186,10 @@ class WorkOrderById(Resource):
 
 class CheckSession(Resource):
     def get(self):
+        if session.get("emp_id"):
+            emp = Employee.query.filter(Employee.id == session["emp_id"]).first()
+            return single_emp_schema.dump(emp), 200
+
         user = User.query.filter(User.id == session.get("user_id")).first()
 
         if user:
