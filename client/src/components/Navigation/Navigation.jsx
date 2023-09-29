@@ -30,6 +30,9 @@ function Navigation({ user, updateUser }) {
             <li>
               <Link to="/">Main Menu</Link>
             </li>
+            <li>
+              <Link to="/work_order/complete">Our Completed Work</Link>
+            </li>
             {/* dynamically render based on session */}
             {user ? (
               <>
@@ -50,9 +53,6 @@ function Navigation({ user, updateUser }) {
                 </Link>
               </li>
             )}
-            <li>
-              <Link to="/work_order/complete">Completed Work</Link>
-            </li>
             {user ? null : (
               <li>
                 <Link to="/authenticate" state={{ isEmployee: true }}>
