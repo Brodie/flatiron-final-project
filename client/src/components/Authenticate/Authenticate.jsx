@@ -21,9 +21,9 @@ function Authenticate({ updateUser }) {
       ? yup.string().required("Username required")
       : yup.string().optional(),
     password: yup.string().required("Password required"),
-    passConfirm: yup
-      .string()
-      .oneOf([yup.ref("password")], "Passwords must match"),
+    passConfirm: signUp
+      ? yup.string().optional()
+      : yup.string().oneOf([yup.ref("password")], "Passwords must match"),
   });
 
   const formik = useFormik({
@@ -118,18 +118,20 @@ function Authenticate({ updateUser }) {
           />
         </>
         <br />
-        <>
-          <label htmlFor="passConfirm">Re-Enter Password</label>
-          <br />
-          <input
-            id="passConfirm"
-            name="passConfirm"
-            type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.passConfirm}
-          />
-        </>
+        {signUp ? (
+          <>
+            <label htmlFor="passConfirm">Re-Enter Password</label>
+            <br />
+            <input
+              id="passConfirm"
+              name="passConfirm"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.passConfirm}
+            />
+          </>
+        ) : null}
         <div style={{ color: "red" }}>
           <>
             {isEmployee ? (
