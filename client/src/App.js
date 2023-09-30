@@ -5,6 +5,7 @@ import { Route, Routes } from "react-router-dom";
 import Authenticate from "./components/Authenticate/Authenticate";
 import Home from "./components/Home/Home";
 import WorkForm from "./components/WorkForm/WorkForm";
+import WorkCard from "./components/WorkCard/WorkCard";
 
 function App() {
   const [work, setWork] = useState([]);
@@ -73,7 +74,15 @@ function App() {
         />
         <Route
           path={"/work_order/complete"}
-          element={<div>complete work</div>}
+          element={
+            <div>
+              {work.map((workObj) => {
+                if (workObj.completed === true) {
+                  return <WorkCard key={workObj.id} workObj={workObj} />;
+                }
+              })}
+            </div>
+          }
         />
         <Route
           path={"/work_order/new"}

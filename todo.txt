@@ -1,8 +1,6 @@
 --todo ✓
 
 next sesh:
-handle errors/fetch on work form
-navigate to home
 home fetches owned work orders and associated images
 display work orders on card
 

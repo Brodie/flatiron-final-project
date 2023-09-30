@@ -1,6 +1,6 @@
 import React from "react";
 
-function Home({ work }, { user }, { setWork }) {
+function Home({ work, user, setWork }) {
   return <div>Home</div>;
 }
 

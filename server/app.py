@@ -185,7 +185,6 @@ class WorkOrders(Resource):
         if secure_filename(image.filename) in [
             img.file_path for img in Image.query.all()
         ]:
-            ext = os.path.splitext(image.filename)[1]
             unique_str = str(uuid.uuid4())[:8]
             image.filename = f"{unique_str}_{image.filename}{ext}"
 
