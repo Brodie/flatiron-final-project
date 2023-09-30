@@ -102,11 +102,12 @@ class Work(db.Model):
 
     @complete.setter
     def complete(self, complete):
-        if complete and not self.complete:
+        if complete == True and not self.complete:
             self.completed = True
             self.completed_at = db.func.now()
             db.session.commit()
-        if not complete and self.complete:
+        if complete == False and self.complete:
+            self.completed = False
             self.completed_at = None
             db.session.commit()
 
