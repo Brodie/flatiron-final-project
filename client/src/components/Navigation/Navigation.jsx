@@ -7,6 +7,7 @@ import "./NavStyle.css";
 function Navigation({ user, updateUser, emp, updateEmp }) {
   const [menu, setMenu] = useState(false);
   const toggleMenu = () => setMenu((prev) => !prev);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     fetch("/logout", {
@@ -15,6 +16,7 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
       if (r.ok) {
         updateUser(null);
         updateEmp(null);
+        navigate("/");
       }
     });
   };
