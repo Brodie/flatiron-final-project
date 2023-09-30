@@ -7,7 +7,7 @@ from sqlalchemy.exc import IntegrityError
 from werkzeug.utils import secure_filename
 
 from config import app, db, api, ma
-from models import User, Employee, Work, Image
+from models import User, Employee, Work, Image, Comment
 from random import choice as rc
 
 
@@ -29,6 +29,7 @@ class UserSchema(ma.SQLAlchemySchema):
     email = ma.auto_field()
     _password_hash = ma.auto_field()
     placed_order = ma.Nested("WorkSchema", many=True, exclude=("requested_by",))
+    comments = ma.Nested("CommentSchema", many=True, exclude=("user",))
 
 
 single_user_schema = UserSchema(only=("id", "name", "email", "placed_order"))
@@ -45,6 +46,7 @@ class EmployeeSchema(ma.SQLAlchemySchema):
     admin = ma.auto_field()
     _password_hash = ma.auto_field()
     work_order = ma.Nested("WorkSchema", many=True, exclude=("assigned_to",))
+    comments = ma.Nested("CommentSchema", many=True, exclude=("employee",))
 
 
 single_emp_schema = EmployeeSchema(
@@ -69,6 +71,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     employee_id = ma.auto_field()
     user_id = ma.auto_field()
     images = ma.Nested("ImageSchema", many=True, exlude=("work_order",))
+    comments = ma.Nested("CommentSchema", many=True, exclude=("work_order",))
 
 
 single_work_schema = WorkSchema()
@@ -87,6 +90,21 @@ class ImageSchema(ma.SQLAlchemyAutoSchema):
 
 single_img_schema = ImageSchema()
 plural_img_schema = ImageSchema(many=True)
+
+
+class CommentSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Comment
+
+    id = ma.auto_field()
+    comment_text = ma.auto_field()
+    user_id = ma.auto_field()
+    emp_id = ma.auto_field()
+    work_id = ma.auto_field()
+
+
+single_coomment_schema = CommentSchema()
+plural_comment_schema = CommentSchema(many=True)
 
 # ######## #
 # DA VIEWS #
