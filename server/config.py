@@ -21,7 +21,7 @@ app.static_url_path = "/static"
 
 
 app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png"]
-app.config["UPLOAD_PATH"] = "server/image_uploads"
+app.config["UPLOAD_PATH"] = "image_uploads"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False

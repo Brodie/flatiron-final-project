@@ -181,13 +181,16 @@ class WorkOrders(Resource):
                 "UPLOAD_EXTENSIONS"
             ] or file_ext != validate_image(uploaded_file.stream):
                 return {"error": "File type not supported"}, 400
+
             uploaded_file.save(os.path.join(app.config["UPLOAD_PATH"], filename))
 
-            img = Image(name=data.get("image_name"), file_path=filename)
+            img = Image(name=request.form.get("image_name"), file_path=filename)
             db.session.add(img)
             db.session.commit()
+            return {"success": "uploaded :)"}, 201
             # now need to assign the image to the work obj
-
+        # -----------------------------------------------------------------------
+        # -----------------------------------------------------------------------
         wo = Work(info=data.get("info"), created_by=user, assigned_to=emps)
 
         try:
