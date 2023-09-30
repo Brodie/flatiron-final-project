@@ -1,8 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
-function WorkForm({ user }) {
+function WorkForm({ user, addWorkOrder }) {
+  const navigate = useNavigate();
+
   const formSchema = yup.object().shape({
     info: yup
       .string()
@@ -31,7 +34,10 @@ function WorkForm({ user }) {
         body: formData,
       }).then((res) => {
         if (res.ok) {
-          // handle success
+          res.json().then((wo) => {
+            addWorkOrder(wo);
+            navigate("/home");
+          });
         } else {
           // handle errors
         }

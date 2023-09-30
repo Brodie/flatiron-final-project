@@ -1,10 +1,10 @@
 --todo ✓
 
 next sesh:
-create image model
-relate image model to work
-create work form with image upload
-handle saving and serving of images
+handle errors/fetch on work form
+navigate to home
+home fetches owned work orders and associated images
+display work orders on card
 
 create work order cards
 /home render owned work_orders
