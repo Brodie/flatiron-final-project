@@ -164,7 +164,6 @@ class WorkOrders(Resource):
         info = request.form.get("info")
         image_name = request.form.get("image_name")
         image = request.files.get("image")
-        print(info, image_name, image)
 
         #
         # change this before deploying

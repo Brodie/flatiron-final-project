@@ -23,6 +23,19 @@ function App() {
     }
   };
 
+  const addWorkOrder = (wo) => {
+    console.log(work);
+    setWork([...work, wo]);
+  };
+
+  useEffect(() => {
+    fetch("/work_order").then((res) => {
+      res.json().then((works) => {
+        setWork(works.work_orders);
+      });
+    });
+  }, []);
+
   useEffect(() => {
     fetch("/check_session").then((res) => {
       if (res.ok) {
@@ -71,7 +84,7 @@ function App() {
           path={"/work_order/new"}
           element={
             <div>
-              <WorkForm user={user} />
+              <WorkForm user={user} addWorkOrder={addWorkOrder} />
             </div>
           }
         />
