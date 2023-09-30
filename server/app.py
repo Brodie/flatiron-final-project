@@ -29,7 +29,7 @@ class UserSchema(ma.SQLAlchemySchema):
     email = ma.auto_field()
     _password_hash = ma.auto_field()
     placed_order = ma.Nested("WorkSchema", many=True, exclude=("requested_by",))
-    comments = ma.Nested("CommentSchema", many=True, exclude=("user",))
+    comments = ma.Nested("CommentSchema", many=True)
 
 
 single_user_schema = UserSchema(only=("id", "name", "email", "placed_order"))
@@ -46,7 +46,7 @@ class EmployeeSchema(ma.SQLAlchemySchema):
     admin = ma.auto_field()
     _password_hash = ma.auto_field()
     work_order = ma.Nested("WorkSchema", many=True, exclude=("assigned_to",))
-    comments = ma.Nested("CommentSchema", many=True, exclude=("employee",))
+    comments = ma.Nested("CommentSchema", many=True)
 
 
 single_emp_schema = EmployeeSchema(
@@ -71,7 +71,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     employee_id = ma.auto_field()
     user_id = ma.auto_field()
     images = ma.Nested("ImageSchema", many=True, exlude=("work_order",))
-    comments = ma.Nested("CommentSchema", many=True, exclude=("work_order",))
+    comments = ma.Nested("CommentSchema", many=True)
 
 
 single_work_schema = WorkSchema()

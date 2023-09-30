@@ -143,3 +143,6 @@ class Comment(db.Model):
     work_order = db.relationship("Work", back_populates="comments")
     user = db.relationship("User", back_populates="comments")
     employee = db.relationship("Employee", back_populates="comments")
+
+    def __repr__(self):
+        return f"<commentID: {self.id}>"
