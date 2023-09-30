@@ -68,10 +68,25 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     completed_at = ma.auto_field()
     employee_id = ma.auto_field()
     user_id = ma.auto_field()
+    images = ma.Nested("ImageSchema", many=True, exlude=("work_order",))
 
 
 single_work_schema = WorkSchema()
 plural_work_schema = WorkSchema(many=True)
+
+
+class ImageSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Image
+
+    id = ma.auto_field()
+    name = ma.auto_field()
+    file_path = ma.auto_field()
+    work_id = ma.auto_field()
+
+
+single_img_schema = ImageSchema()
+plural_img_schema = ImageSchema(many=True)
 
 # ######## #
 # DA VIEWS #
