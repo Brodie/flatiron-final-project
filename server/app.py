@@ -161,7 +161,8 @@ class WorkOrders(Resource):
         return {"work_orders": work_orders}, 200
 
     def post(self):
-        data = request.get_json()
+        # commenting out due to sending form data from postman
+        # data = request.get_json()
         #
         # change this before deploying
         # either add admin role that can create employees from front end
@@ -239,6 +240,7 @@ class Images(Resource):
         return send_from_directory(app.config["UPLOAD_PATH"], path)
 
 
+api.add_resource(Images, "/static/uploads/<int:id>")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(WorkOrderById, "/work_order/<int:id>")
 api.add_resource(WorkOrders, "/work_order")
