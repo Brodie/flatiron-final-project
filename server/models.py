@@ -17,6 +17,7 @@ class User(db.Model):
     email = db.Column(db.String, unique=True)
     _password_hash = db.Column(db.String)
     placed_order = db.relationship("Work", back_populates="requested_by")
+    comments = db.relationship("Comment", back_populates="user")
 
     def __repr__(self):
         return f"<User:{self.name}, ID:{self.id}>"
@@ -58,6 +59,7 @@ class Employee(db.Model):
     admin = db.Column(db.Boolean, default=False)
     _password_hash = db.Column(db.String)
     work_order = db.relationship("Work", back_populates="assigned_to")
+    comments = db.relationship("Comment", back_populates="employee")
 
     def __repr__(self):
         return f"<Emp:{self.name}, ID:{self.id}>"
@@ -95,6 +97,7 @@ class Work(db.Model):
     employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     images = db.relationship("Image", back_populates="work_order")
+    comments = db.relationship("Comment", back_populates="work_order")
 
     @hybrid_property
     def complete(self):
@@ -126,3 +129,17 @@ class Image(db.Model):
 
     def __repr__(self):
         return f"<ImageID: {self.id}"
+
+
+class Comment(db.Model):
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment_text = db.Column(db.String, nullable=False)
+    emp_id = db.Column(db.Integer, db.ForeignKey("employees.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    work_id = db.Column(db.Integer, db.ForeignKey("work_orders.id"))
+
+    work_order = db.relationship("Work", back_populates="comments")
+    user = db.relationship("User", back_populates="comments")
+    employee = db.relationship("Employee", back_populates="comments")
