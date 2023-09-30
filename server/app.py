@@ -1,5 +1,6 @@
 import os
 import imghdr
+import uuid
 from flask import request, session, send_from_directory
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
@@ -165,6 +166,14 @@ class WorkOrders(Resource):
         image_name = request.form.get("image_name")
         image = request.files.get("image")
 
+        # check if filepath already exists. append random string if it does
+        if secure_filename(image.filename) in [
+            img.file_path for img in Image.query.all()
+        ]:
+            ext = os.path.splitext(image.filename)[1]
+            unique_str = str(uuid.uuid4())[:8]
+            image.filename = f"{unique_str}_{image.filename}{ext}"
+
         #
         # change this before deploying
         # either add admin role that can create employees from front end
@@ -175,16 +184,15 @@ class WorkOrders(Resource):
         user = User.query.filter(User.id == session["user_id"]).first()
 
         #  handling file uploads
-        uploaded_file = image
-        filename = secure_filename(uploaded_file.filename)
+        filename = secure_filename(image.filename)
         if filename:
             file_ext = os.path.splitext(filename)[1]
             if file_ext not in app.config[
                 "UPLOAD_EXTENSIONS"
-            ] or file_ext != validate_image(uploaded_file.stream):
+            ] or file_ext != validate_image(image.stream):
                 return {"error": "File type not supported"}, 400
 
-            uploaded_file.save(os.path.join(app.config["UPLOAD_PATH"], filename))
+            image.save(os.path.join(app.config["UPLOAD_PATH"], filename))
 
             img = Image(name=image_name, file_path=filename)
             img_list = [img]
