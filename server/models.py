@@ -94,6 +94,7 @@ class Work(db.Model):
     completed_at = db.Column(db.DateTime)
     employee_id = db.Column(db.Integer, db.ForeignKey("employees.id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    images = db.relationship("Image", back_populates="work_order")
 
     @hybrid_property
     def complete(self):
@@ -117,3 +118,5 @@ class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     file_path = db.Column(db.String, nullable=False)
+    work_order = db.relationship("Work", back_populates="images")
+    work_id = db.Column(db.Integer, db.ForeignKey("work_orders.id"))
