@@ -105,8 +105,10 @@ class Work(db.Model):
         if complete and not self.complete:
             self.completed = True
             self.completed_at = db.func.now()
+            db.session.commit()
         if not complete and self.complete:
             self.completed_at = None
+            db.session.commit()
 
     def __repr__(self):
         return f"<Work Order ID:{self.id}>"
@@ -120,3 +122,6 @@ class Image(db.Model):
     file_path = db.Column(db.String, nullable=False)
     work_order = db.relationship("Work", back_populates="images")
     work_id = db.Column(db.Integer, db.ForeignKey("work_orders.id"))
+
+    def __repr__(self):
+        return f"<ImageID: {self.id}"
