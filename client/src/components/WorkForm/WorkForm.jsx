@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 
 function WorkForm({ user, addWorkOrder }) {
   const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
 
   const formSchema = yup.object().shape({
     info: yup
@@ -39,7 +40,12 @@ function WorkForm({ user, addWorkOrder }) {
             navigate("/home");
           });
         } else {
-          // handle errors
+          res.json().then((err) => {
+            setTimeout(() => {
+              setErrors([]);
+            }, 3500);
+            setErrors([...errors, err.errors]);
+          });
         }
       });
     },
@@ -94,6 +100,13 @@ function WorkForm({ user, addWorkOrder }) {
         <p style={{ color: "red" }}>{formik.errors.info}</p>
         <button type="submit">Submit Work Order!</button>
       </form>
+      <h2>
+        {errors.map((err) => (
+          <p key={err} style={{ color: "red" }}>
+            {err}
+          </p>
+        ))}
+      </h2>
     </>
   );
 }
