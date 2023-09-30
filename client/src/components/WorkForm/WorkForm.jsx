@@ -15,7 +15,7 @@ function WorkForm({ user }) {
   const formik = useFormik({
     initialValues: {
       info: "",
-      image: null,
+      image: "null",
       image_name: "",
     },
     validationSchema: formSchema,
@@ -70,8 +70,18 @@ function WorkForm({ user }) {
           id="image"
           name="image"
           type="file"
+          onChange={(e) => {
+            formik.setFieldValue("image", e.currentTarget.files[0]);
+          }}
+        />
+        <br />
+        <label htmlFor="image_name">Image Description</label>
+        <br />
+        <input
+          id="image_name"
+          name="image_name"
           onChange={formik.handleChange}
-          value={formik.values.image}
+          value={formik.values.image_name}
         />
         <br />
         <br />

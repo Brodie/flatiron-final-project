@@ -161,19 +161,22 @@ class WorkOrders(Resource):
         return {"work_orders": work_orders}, 200
 
     def post(self):
-        # commenting out due to sending form data from postman
-        # data = request.get_json()
+        info = request.form.get("info")
+        image_name = request.form.get("image_name")
+        image = request.files.get("image")
+        print(info, image_name, image)
+
         #
         # change this before deploying
         # either add admin role that can create employees from front end
         # or create an admin employee to assign work to
         #
         # using test employee to test frontend
-        emps = Employee.query.filter(Employee.username == "brodie")
+        emps = Employee.query.filter(Employee.username == "brodie").first()
         user = User.query.filter(User.id == session["user_id"]).first()
 
         #  handling file uploads
-        uploaded_file = request.files.get("image")
+        uploaded_file = image
         filename = secure_filename(uploaded_file.filename)
         if filename:
             file_ext = os.path.splitext(filename)[1]
@@ -184,14 +187,12 @@ class WorkOrders(Resource):
 
             uploaded_file.save(os.path.join(app.config["UPLOAD_PATH"], filename))
 
-            img = Image(name=request.form.get("image_name"), file_path=filename)
+            img = Image(name=image_name, file_path=filename)
+            img_list = [img]
             db.session.add(img)
             db.session.commit()
-            return {"success": "uploaded :)"}, 201
-            # now need to assign the image to the work obj
-        # -----------------------------------------------------------------------
-        # -----------------------------------------------------------------------
-        wo = Work(info=data.get("info"), created_by=user, assigned_to=emps)
+
+        wo = Work(info=info, requested_by=user, assigned_to=emps, images=img_list)
 
         try:
             db.session.add(wo)
@@ -201,7 +202,7 @@ class WorkOrders(Resource):
         except IntegrityError as e:
             errors = []
 
-            if not data.get("info"):
+            if not info:
                 errors.append("Please include work info")
 
             if isinstance(e, (IntegrityError)):
