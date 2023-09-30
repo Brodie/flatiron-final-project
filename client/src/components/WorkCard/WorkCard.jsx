@@ -12,15 +12,17 @@ function WorkCard({ workObj, setWork }) {
           Completed at {workObj.completed_at} by {workObj.assigned_to.name}
         </h3>
       ) : null}
-      {workObj.images.map((img) => {
-        return (
-          <img
-            key={img.id}
-            src={`/static/uploads/${img.id}`}
-            style={{ height: "100px" }}
-          />
-        );
-      })}
+      <div className="image-container">
+        {workObj.images.map((img) => {
+          return (
+            <img
+              key={img.id}
+              src={`/static/uploads/${img.id}`}
+              style={{ height: "100px" }}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }
