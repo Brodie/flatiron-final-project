@@ -76,9 +76,12 @@ function App() {
           path={"/work_order/complete"}
           element={
             <div>
+              <h1>Our Completed Jobs</h1>
               {work.map((workObj) => {
                 if (workObj.completed === true) {
-                  return <WorkCard key={workObj.id} workObj={workObj} />;
+                  return (
+                    <WorkCard key={workObj.id} workObj={workObj} emp={emp} />
+                  );
                 }
               })}
             </div>

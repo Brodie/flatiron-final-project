@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-function WorkCard({ workObj, setWork }) {
+function WorkCard({ workObj, setWork, user, emp }) {
   console.log(workObj);
 
   const [open, setOpen] = useState(false);
@@ -27,7 +27,7 @@ function WorkCard({ workObj, setWork }) {
       </div>
       <button onClick={() => setOpen((prev) => !prev)}>Show Comments</button>
       {open && (
-        <div>
+        <div className="comment-container">
           {workObj.comments[0] ? (
             workObj.comments.map((com) => {
               return <p key={com.id}>{com.comment_text}</p>;
@@ -35,6 +35,9 @@ function WorkCard({ workObj, setWork }) {
           ) : (
             <p>No Comments</p>
           )}
+          {emp || user.id === workObj.requested_by.id ? (
+            <button>Add Comment</button>
+          ) : null}
         </div>
       )}
     </div>

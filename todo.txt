@@ -1,22 +1,20 @@
 --todo ✓
 
 next sesh:
-home fetches owned work orders and associated images
-display work orders on card
 
-create work order cards
+
+
 /home render owned work_orders
-work order form
-/completed_work to view all work orders
+
 
 MODELS:
 
 ✓create model validations
 ✓test models
--add comments to work order
--add image to work order
--add image model
--add images
+✓add comments to work order
+✓add image to work order
+✓add image model
+✓add images
 
 
 APP:
@@ -34,6 +32,13 @@ create views
 create authenticated views
 
 REACT:
+
+--if employee (or maybe admin), able to add comments 
+to any completed order, or remove comments
+
+-create comment submit form. as separate component.
+-- maybe modal?
+
 
 create homepage
 ✓create navbar/hamburger menu
