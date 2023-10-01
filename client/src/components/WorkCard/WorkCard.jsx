@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import CommentModal from "../CommentModal/CommentModal";
 
 function WorkCard({ workObj, setWork, user, emp }) {
-  console.log(workObj);
+  const [showModal, setShowModal] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -36,7 +37,10 @@ function WorkCard({ workObj, setWork, user, emp }) {
             <p>No Comments</p>
           )}
           {emp || user.id === workObj.requested_by.id ? (
-            <button>Add Comment</button>
+            <>
+              <button onClick={() => setShowModal(true)}>Add Comment</button>
+              <CommentModal showModal={showModal} setShowModal={setShowModal} />
+            </>
           ) : null}
         </div>
       )}
