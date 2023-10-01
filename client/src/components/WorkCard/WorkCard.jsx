@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import CommentModal from "../CommentModal/CommentModal";
+import CommentForm from "../CommentForm/CommentForm";
 
 function WorkCard({ workObj, setWork, user, emp }) {
-  const [showModal, setShowModal] = useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   const [open, setOpen] = useState(false);
 
   return (
     <div className="card-container">
       <h2>Submitted By: {workObj.requested_by.name}</h2>
-      <p>{workObj.info}</p>
       {workObj.completed ? (
         <h3>
           Completed at {workObj.completed_at} by {workObj.assigned_to.name}
         </h3>
-      ) : null}
+      ) : (
+        <p>
+          <span style={{ fontWeight: "bold" }}>Assigned to:</span>{" "}
+          {workObj.assigned_to.name}
+        </p>
+      )}
+      <p>{workObj.info}</p>
       <div className="image-container">
         {workObj.images.map((img) => {
           return (
@@ -38,8 +43,14 @@ function WorkCard({ workObj, setWork, user, emp }) {
           )}
           {emp || user.id === workObj.requested_by.id ? (
             <>
-              <button onClick={() => setShowModal(true)}>Add Comment</button>
-              <CommentModal showModal={showModal} setShowModal={setShowModal} />
+              <button onClick={() => setShowForm((prev) => !prev)}>
+                {showForm ? "Close" : "Add Comment"}
+              </button>
+              <CommentForm
+                showForm={showForm}
+                setShowForm={setShowForm}
+                workObj={workObj}
+              />
             </>
           ) : null}
         </div>

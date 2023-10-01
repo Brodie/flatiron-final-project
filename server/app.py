@@ -204,7 +204,7 @@ class WorkOrders(Resource):
             img.file_path for img in Image.query.all()
         ]:
             unique_str = str(uuid.uuid4())[:8]
-            image.filename = f"{unique_str}_{image.filename}{ext}"
+            image.filename = f"{unique_str}_{image.filename}"
 
         #
         # change this before deploying

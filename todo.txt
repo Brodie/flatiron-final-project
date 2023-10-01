@@ -2,9 +2,11 @@
 
 next sesh:
 
+handle post of comments to workorder by id
+handle employee delete comment
 
-
-/home render owned work_orders
+getting bug when viewing all work as user and attempting to view comments
+build out work_order/id view
 
 
 MODELS:
