@@ -53,7 +53,7 @@ function Authenticate({ handleModelCheck }) {
         if (res.ok) {
           res.json().then((model) => {
             handleModelCheck(model);
-            navigate("/home");
+            navigate(model["username"] ? "/" : "/home");
           });
         } else {
           res.json().then((err) => {
