@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CommentForm from "../CommentForm/CommentForm";
 
-function WorkCard({ workObj, setWork, user, emp }) {
+function WorkCard({ workObj, setWork, work, user, emp }) {
   const [showForm, setShowForm] = useState(false);
 
   const [open, setOpen] = useState(false);
@@ -31,7 +31,9 @@ function WorkCard({ workObj, setWork, user, emp }) {
           );
         })}
       </div>
-      <button onClick={() => setOpen((prev) => !prev)}>Show Comments</button>
+      <button onClick={() => setOpen((prev) => !prev)}>
+        {open ? "Hide " : "Show "}Comments
+      </button>
       {open && (
         <div className="comment-container">
           {workObj.comments[0] ? (
@@ -41,16 +43,19 @@ function WorkCard({ workObj, setWork, user, emp }) {
           ) : (
             <p>No Comments</p>
           )}
-          {emp || user.id === workObj.requested_by.id ? (
+          {emp || user?.id === workObj.requested_by?.id ? (
             <>
               <button onClick={() => setShowForm((prev) => !prev)}>
                 {showForm ? "Close" : "Add Comment"}
               </button>
-              <CommentForm
-                showForm={showForm}
-                setShowForm={setShowForm}
-                workObj={workObj}
-              />
+              {showForm && (
+                <CommentForm
+                  setWork={setWork}
+                  work={work}
+                  workObj={workObj}
+                  poster={emp ? emp : user}
+                />
+              )}
             </>
           ) : null}
         </div>

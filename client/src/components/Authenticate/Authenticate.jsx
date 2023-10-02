@@ -160,13 +160,13 @@ function Authenticate({ handleModelCheck }) {
         <button type="submit">{signUp ? "Sign Up" : "Login"}</button>
       </form>
 
-      <h2>
+      <>
         {errors.map((err) => (
           <p key={err} style={{ color: "red" }}>
             {err}
           </p>
         ))}
-      </h2>
+      </>
 
       {isEmployee ? null : (
         <div>

@@ -80,7 +80,13 @@ function App() {
               {work.map((workObj) => {
                 if (workObj.completed === true) {
                   return (
-                    <WorkCard key={workObj.id} workObj={workObj} emp={emp} />
+                    <WorkCard
+                      key={workObj.id}
+                      setWork={setWork}
+                      work={work}
+                      workObj={workObj}
+                      emp={emp}
+                    />
                   );
                 }
               })}

@@ -103,7 +103,7 @@ class CommentSchema(ma.SQLAlchemyAutoSchema):
     work_id = ma.auto_field()
 
 
-single_coomment_schema = CommentSchema()
+single_comment_schema = CommentSchema()
 plural_comment_schema = CommentSchema(many=True)
 
 # ######## #
@@ -283,6 +283,53 @@ class Images(Resource):
         return send_from_directory(app.config["UPLOAD_PATH"], path)
 
 
+class Comments(Resource):
+    def post(self):
+        data = request.get_json()
+        print(data)
+        if not data.get("email") and not data.get("username"):
+            return {"errors": "must be logged in to add comment"}, 401
+
+        if not data.get("comment_text"):
+            return {"errors": "empty body"}, 400
+
+        comment = Comment(comment_text=data["comment_text"])
+
+        if data.get("email"):
+            poster = User.query.filter(User.email == data["email"]).first()
+            comment.user = poster
+        else:
+            poster = Employee.query.filter(Employee.username == data["username"])
+            comment.employee = poster
+
+        wo = Work.query.filter(Work.id == data["work_order_id"]).first()
+        comment.work_order = wo
+
+        try:
+            db.session.add(comment)
+            db.session.commit()
+            return single_comment_schema.dump(comment), 201
+
+        except IntegrityError as e:
+            errors = []
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
+
+
+class CommentById(Resource):
+    def patch(self, id):
+        pass
+
+    def delete(self, id):
+        pass
+
+
+api.add_resource(Comments, "/comment/new")
+api.add_resource(CommentById, "/comment/<int:id>")
 api.add_resource(Images, "/static/uploads/<int:id>")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(WorkOrderById, "/work_order/<int:id>")
