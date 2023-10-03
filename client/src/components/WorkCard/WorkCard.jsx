@@ -57,7 +57,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           );
         })}
       </div>
-      {emp.id === workObj.assigned_to.id ? (
+      {emp && emp.id === workObj.assigned_to.id ? (
         <button style={{ color: "red" }} onClick={handleComplete}>
           {confirm ? (
             <span style={{ fontWeight: "bolder" }}>CONFIRM</span>
@@ -87,7 +87,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           ) : (
             <p>No Comments</p>
           )}
-          {emp || user?.id === workObj.requested_by?.id ? (
+          {(emp || user) && user?.id === workObj.requested_by?.id ? (
             <>
               <button onClick={() => setShowForm((prev) => !prev)}>
                 {showForm ? "Close" : "Add Comment"}

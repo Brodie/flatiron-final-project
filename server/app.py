@@ -260,10 +260,7 @@ class WorkOrderById(Resource):
         if data.get("completed"):
             wo.complete = True
             db.session.commit()
-            return {"message": f"Work marked complete at {wo.completed_at}"}
-
-        print(data)
-        return {"data": data["completed"]}, 200
+            return {"message": f"Work marked complete at {wo.completed_at}"}, 202
 
     def delete(self, id):
         pass
