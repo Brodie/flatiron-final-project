@@ -57,7 +57,8 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           );
         })}
       </div>
-      {emp && emp.id === workObj.assigned_to.id ? (
+
+      {emp && emp.id === workObj.assigned_to.id && !workObj.completed ? (
         <button style={{ color: "red" }} onClick={handleComplete}>
           {confirm ? (
             <span style={{ fontWeight: "bolder" }}>CONFIRM</span>
@@ -66,6 +67,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           )}
         </button>
       ) : null}
+
       <button
         style={{ marginLeft: "4px" }}
         onClick={() => setOpen((prev) => !prev)}
