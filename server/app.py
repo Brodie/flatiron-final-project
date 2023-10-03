@@ -252,11 +252,18 @@ class WorkOrders(Resource):
 
 
 class WorkOrderById(Resource):
-    def get(self, id):
-        pass
-
     def patch(self, id):
-        pass
+        data = request.get_json()
+
+        wo = Work.query.filter(Work.id == id).first()
+
+        if data.get("completed"):
+            wo.complete = True
+            db.session.commit()
+            return {"message": f"Work marked complete at {wo.completed_at}"}
+
+        print(data)
+        return {"data": data["completed"]}, 200
 
     def delete(self, id):
         pass

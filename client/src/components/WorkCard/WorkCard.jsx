@@ -6,6 +6,30 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
 
   const [open, setOpen] = useState(false);
 
+  //  confirm state to double click button before marking complete
+  const [confirm, setConfirm] = useState(false);
+
+  const handleComplete = () => {
+    if (confirm) {
+      setConfirm(false);
+      fetch(`work_order/${workObj.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "Application/json",
+        },
+        body: JSON.stringify({ completed: "true" }),
+      }).then((r) => {
+        if (r.ok) {
+          r.json().then((data) => {
+            console.log(data);
+          });
+        }
+      });
+    } else {
+      setConfirm(true);
+    }
+  };
+
   return (
     <div className="card-container">
       <h2>Submitted By: {workObj.requested_by.name}</h2>
@@ -33,9 +57,27 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           );
         })}
       </div>
-      <button onClick={() => setOpen((prev) => !prev)}>
+      {emp.id === workObj.assigned_to.id ? (
+        <button style={{ color: "red" }} onClick={handleComplete}>
+          {confirm ? (
+            <span style={{ fontWeight: "bolder" }}>CONFIRM</span>
+          ) : (
+            "Mark Complete"
+          )}
+        </button>
+      ) : null}
+      <button
+        style={{ marginLeft: "4px" }}
+        onClick={() => setOpen((prev) => !prev)}
+      >
         {open ? "Hide " : "Show "}Comments
       </button>
+      {confirm ? (
+        <>
+          <br />
+          <button onClick={() => setConfirm(false)}>Cancel</button>
+        </>
+      ) : null}
       {open && (
         <div className="comment-container">
           {workObj.comments[0] ? (
