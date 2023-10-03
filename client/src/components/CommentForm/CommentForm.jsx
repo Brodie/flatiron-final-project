@@ -41,6 +41,10 @@ function CommentForm({ workObj, poster, work, setWork }) {
             });
             setWork(updatedWork);
           });
+        } else {
+          res.json().then((err) => {
+            setErrors(err.errors);
+          });
         }
       });
     },
