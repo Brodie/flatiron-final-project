@@ -1,16 +1,25 @@
 import React from "react";
 import WorkCard from "../WorkCard/WorkCard";
 
-function Home({ work, user, setWork }) {
-  const userWorkOrders = work.filter((workObj) => {
-    return workObj.requested_by.id === user.id;
-  });
+function Home({ work, user, setWork, emp }) {
+  const userWorkOrders = user
+    ? work.filter((workObj) => {
+        return workObj.requested_by.id === user.id;
+      })
+    : [];
 
-  console.log(userWorkOrders);
+  const empWorkOrders = emp
+    ? work.filter((workObj) => {
+        return workObj.assigned_to.id === emp.id;
+      })
+    : [];
+
+  const ordersToMap = user ? userWorkOrders : empWorkOrders;
+
   return (
     <div>
       <h1>My Work Orders</h1>
-      {userWorkOrders.map((workObj) => {
+      {ordersToMap.map((workObj) => {
         return (
           <WorkCard
             key={workObj.id}
@@ -18,6 +27,7 @@ function Home({ work, user, setWork }) {
             work={work}
             workObj={workObj}
             user={user}
+            emp={emp}
           />
         );
       })}

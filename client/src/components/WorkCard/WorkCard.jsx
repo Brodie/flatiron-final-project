@@ -9,6 +9,8 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
   return (
     <div className="card-container">
       <h2>Submitted By: {workObj.requested_by.name}</h2>
+
+      {/* completed ? completed : assigned to  */}
       {workObj.completed ? (
         <h3>
           Completed at {workObj.completed_at} by {workObj.assigned_to.name}

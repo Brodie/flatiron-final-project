@@ -28,6 +28,12 @@ function App() {
     setWork([...work, wo]);
   };
 
+  const empWork = emp
+    ? work.filter((workObj) => {
+        return workObj.assigned_to.id === emp.id;
+      })
+    : [];
+
   useEffect(() => {
     fetch("/work_order").then((res) => {
       res.json().then((works) => {
@@ -60,7 +66,7 @@ function App() {
           path={"/home"}
           element={
             <div>
-              <Home user={user} work={work} setWork={setWork} />
+              <Home user={user} work={work} setWork={setWork} emp={emp} />
             </div>
           }
         />
@@ -76,20 +82,37 @@ function App() {
           path={"/work_order/complete"}
           element={
             <div>
-              <h1>Our Completed Jobs</h1>
-              {work.map((workObj) => {
-                if (workObj.completed === true) {
-                  return (
-                    <WorkCard
-                      key={workObj.id}
-                      setWork={setWork}
-                      work={work}
-                      workObj={workObj}
-                      emp={emp}
-                    />
-                  );
-                }
-              })}
+              {/* if employee render conly employee jobs */}
+              <h1>{emp ? "My " : "Our "}Completed Jobs</h1>
+              {emp
+                ? empWork.map((workObj) => {
+                    if (workObj.completed === true) {
+                      return (
+                        <WorkCard
+                          key={workObj.id}
+                          setWork={setWork}
+                          work={work}
+                          workObj={workObj}
+                          emp={emp}
+                          user={user}
+                        />
+                      );
+                    }
+                  })
+                : work.map((workObj) => {
+                    if (workObj.completed === true) {
+                      return (
+                        <WorkCard
+                          key={workObj.id}
+                          setWork={setWork}
+                          work={work}
+                          workObj={workObj}
+                          emp={emp}
+                          user={user}
+                        />
+                      );
+                    }
+                  })}
             </div>
           }
         />

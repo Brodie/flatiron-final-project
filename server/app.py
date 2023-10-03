@@ -288,10 +288,10 @@ class Comments(Resource):
         data = request.get_json()
         print(data)
         if not data.get("email") and not data.get("username"):
-            return {"errors": "must be logged in to add comment"}, 401
+            return {"errors": ["must be logged in to add comment"]}, 401
 
         if not data.get("comment_text"):
-            return {"errors": "empty body"}, 400
+            return {"errors": ["empty body"]}, 400
 
         comment = Comment(comment_text=data["comment_text"])
 
