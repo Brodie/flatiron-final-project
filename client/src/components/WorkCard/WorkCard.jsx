@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CommentForm from "../CommentForm/CommentForm";
+import { json } from "react-router-dom";
 
 function WorkCard({ workObj, setWork, work, user, emp }) {
   const [showForm, setShowForm] = useState(false);
@@ -28,6 +29,22 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
     } else {
       setConfirm(true);
     }
+  };
+
+  const deleteComment = (commID) => {
+    fetch(`/comment/${commID}`, {
+      method: "DELETE",
+    }).then((r) => {
+      if (r.ok) {
+        r.json().then((data) => {
+          alert(data.message);
+        });
+      } else {
+        r.json().then((data) => {
+          alert(data.errors);
+        });
+      }
+    });
   };
 
   return (
@@ -84,7 +101,16 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
         <div className="comment-container">
           {workObj.comments[0] ? (
             workObj.comments.map((com) => {
-              return <p key={com.id}>{com.comment_text}</p>;
+              return (
+                <>
+                  <p key={com.id}>{com.comment_text}</p>
+                  {emp && emp.admin ? (
+                    <button onClick={() => deleteComment(com.id)}>
+                      Delete Comment
+                    </button>
+                  ) : null}
+                </>
+              );
             })
           ) : (
             <p>No Comments</p>

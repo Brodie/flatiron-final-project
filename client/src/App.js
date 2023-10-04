@@ -55,6 +55,9 @@ function App() {
 
   return (
     <>
+      {emp && emp.admin ? (
+        <h1 style={{ color: "red" }}>LOGGED IN AS ADMIN</h1>
+      ) : null}
       <Navigation
         user={user}
         updateUser={updateUser}
@@ -82,7 +85,7 @@ function App() {
           path={"/work_order/complete"}
           element={
             <div>
-              {/* if employee render conly employee jobs */}
+              {/* if employee render only employee jobs */}
               <h1>{emp ? "My " : "Our "}Completed Jobs</h1>
               {emp
                 ? empWork.map((workObj) => {
@@ -125,6 +128,24 @@ function App() {
           }
         />
         <Route path={"/"} element={<div>hello</div>} />
+
+        {/* only render if admin */}
+        {emp && emp.admin ? (
+          <Route
+            path={"work_order/all"}
+            element={work.map((workObj) => {
+              return (
+                <WorkCard
+                  key={workObj.id}
+                  setWork={setWork}
+                  work={work}
+                  workObj={workObj}
+                  emp={emp}
+                />
+              );
+            })}
+          />
+        ) : null}
       </Routes>
     </>
   );

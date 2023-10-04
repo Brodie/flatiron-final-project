@@ -329,7 +329,19 @@ class CommentById(Resource):
         pass
 
     def delete(self, id):
-        pass
+        comm = Comment.query.filter(Comment.id == id).first()
+        try:
+            db.session.delete(comm)
+            db.session.commit()
+            return {"message": "comment deleted"}, 202
+        except IntegrityError as e:
+            errors = []
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
 
 
 api.add_resource(Comments, "/comment/new")

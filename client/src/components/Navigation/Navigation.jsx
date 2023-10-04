@@ -38,6 +38,12 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
                 {emp ? "My Complete Work" : "Our Completed Work"}
               </Link>
             </li>
+            {/* admin link */}
+            {emp && emp.admin ? (
+              <li>
+                <Link to="/work_order/all">All Work</Link>
+              </li>
+            ) : null}
 
             {user || emp ? (
               <>

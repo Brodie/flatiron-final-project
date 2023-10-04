@@ -6,7 +6,7 @@ import * as yup from "yup";
 function Authenticate({ handleModelCheck }) {
   // useLocation to determine if employee portal or signup/login was clicked
   const location = useLocation();
-  const { isEmployee } = location.state;
+  const { isEmployee } = location.state ? location.state.isEmployee : false;
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
