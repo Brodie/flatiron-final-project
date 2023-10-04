@@ -32,8 +32,12 @@ class UserSchema(ma.SQLAlchemySchema):
     comments = ma.Nested("CommentSchema", many=True)
 
 
-single_user_schema = UserSchema(only=("id", "name", "email", "placed_order"))
-plural_user_schema = UserSchema(only=("id", "name", "email", "placed_order"), many=True)
+single_user_schema = UserSchema(
+    only=("id", "name", "email", "placed_order", "comments")
+)
+plural_user_schema = UserSchema(
+    only=("id", "name", "email", "placed_order", "comments"), many=True
+)
 
 
 class EmployeeSchema(ma.SQLAlchemySchema):
@@ -50,10 +54,10 @@ class EmployeeSchema(ma.SQLAlchemySchema):
 
 
 single_emp_schema = EmployeeSchema(
-    only=("id", "name", "username", "admin", "work_order")
+    only=("id", "name", "username", "admin", "work_order", "comments")
 )
 plural_emp_schema = EmployeeSchema(
-    only=("id", "name", "username", "admin", "work_order"), many=True
+    only=("id", "name", "username", "admin", "work_order", "comments"), many=True
 )
 
 
@@ -70,7 +74,7 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):
     completed_at = ma.auto_field()
     employee_id = ma.auto_field()
     user_id = ma.auto_field()
-    images = ma.Nested("ImageSchema", many=True, exlude=("work_order",))
+    images = ma.Nested("ImageSchema", many=True, exclude=("work_order",))
     comments = ma.Nested("CommentSchema", many=True)
 
 
@@ -84,6 +88,13 @@ class ImageSchema(ma.SQLAlchemyAutoSchema):
 
     id = ma.auto_field()
     name = ma.auto_field()
+    work_order = ma.Nested(
+        "WorkSchema",
+        exclude=(
+            "images",
+            "work_order",
+        ),
+    )
     file_path = ma.auto_field()
     work_id = ma.auto_field()
 
@@ -98,9 +109,27 @@ class CommentSchema(ma.SQLAlchemyAutoSchema):
 
     id = ma.auto_field()
     comment_text = ma.auto_field()
+    user = ma.Method("user_data")
+    employee = ma.Method("emp_data")
     user_id = ma.auto_field()
     emp_id = ma.auto_field()
     work_id = ma.auto_field()
+
+    # couldnt get serialization to work with exclude property, created method to work arount
+
+    def user_data(self, commObj):
+        if commObj.user:
+            return {
+                "id": commObj.user.id,
+                "name": commObj.user.name,
+                "email": commObj.user.email,
+            }
+        return None
+
+    def emp_data(self, commObj):
+        if commObj.employee:
+            return {"id": commObj.employee.id, "name": commObj.employee.name}
+        return None
 
 
 single_comment_schema = CommentSchema()
