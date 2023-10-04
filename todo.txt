@@ -2,9 +2,7 @@
 
 next sesh:
 
-handle employee delete comment
-
-build out work_order/id view
+show who commented
 
 
 MODELS:
