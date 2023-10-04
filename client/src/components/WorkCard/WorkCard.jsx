@@ -103,7 +103,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
               return (
                 <>
                   <p key={com.id}>
-                    <span>{com.user ? com.user.name : null}:</span>
+                    <span>{com.user ? com.user.name : com.employee.name}:</span>
                     {com.comment_text}
                   </p>
                   {emp && emp.admin ? (
