@@ -375,7 +375,7 @@ class CommentById(Resource):
 
 api.add_resource(Comments, "/comment/new")
 api.add_resource(CommentById, "/comment/<int:id>")
-api.add_resource(Images, "/static/uploads/<int:id>")
+api.add_resource(Images, "/images/<int:id>")
 api.add_resource(CheckSession, "/check_session")
 api.add_resource(WorkOrderById, "/work_order/<int:id>")
 api.add_resource(WorkOrders, "/work_order")
