@@ -87,7 +87,11 @@ function App() {
             element={
               <div className="card-container">
                 {/* if employee render only employee jobs */}
-                <h1>{emp ? "My " : "Our "}Completed Jobs</h1>
+                <div className="title-container">
+                  <h1 className="job-title">
+                    {emp ? "My " : "Our "}Completed Jobs
+                  </h1>
+                </div>
                 {emp
                   ? empWork.map((workObj) => {
                       if (workObj.completed === true) {

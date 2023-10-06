@@ -23,6 +23,7 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
 
   return (
     <div className="nav">
+      <div className="pond-icon"></div>
       <h1 className="nav-title">Pond Company</h1>
       <section className={`nav-menu  ${menu ? "open" : ""}`}>
         {menu ? (

@@ -1,12 +1,31 @@
 .card-container{
     background-color: #5a6216;
-    color: wheat;
-    opacity: 90%;
+    color: white;
+    /* opacity: 90%; */
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 750px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 20px 20px;
     box-sizing: border-box;
 }
+
+.card-image{
+    width: 600px;
+    border: 2px solid black;
+    opacity: 1
+}
+
+
+@media (max-width: 1000px){
+    .card-container{
+        margin-top: auto;
+        padding: 40px 10px;
+    }
+    .card-image{
+        width: 80%
+    }
+}
+
+

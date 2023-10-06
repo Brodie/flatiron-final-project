@@ -67,9 +67,9 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
         {workObj.images.map((img) => {
           return (
             <img
+              className="card-image"
               key={img.id}
               src={`/images/${img.id}`}
-              style={{ height: "100px" }}
             />
           );
         })}
@@ -104,11 +104,12 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
               return (
                 <>
                   <p key={com.id}>
-                    <span style={{ color: "green" }}>
+                    <span style={{ color: "white" }}>
                       {com.user ? com.user.name : com.employee.name}:{" "}
                     </span>
                     {com.comment_text}
                   </p>
+
                   {emp && emp.admin ? (
                     <button onClick={() => deleteComment(com.id)}>
                       Delete Comment
