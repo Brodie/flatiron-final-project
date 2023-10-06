@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import "./WorkForm.css";
 
 function WorkForm({ user, addWorkOrder }) {
   const navigate = useNavigate();
@@ -52,8 +53,8 @@ function WorkForm({ user, addWorkOrder }) {
   });
 
   return (
-    <>
-      <h1>Submit a Work Order for Us!</h1>
+    <div className="workform-container">
+      <h1 className="form-title">Submit a Work Order for Us!</h1>
       <form className="work-order-form" onSubmit={formik.handleSubmit}>
         <label htmlFor="name">Name:</label>
         <br />
@@ -107,7 +108,7 @@ function WorkForm({ user, addWorkOrder }) {
           </p>
         ))}
       </h2>
-    </>
+    </div>
   );
 }
 
