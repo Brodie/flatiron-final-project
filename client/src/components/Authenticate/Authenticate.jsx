@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import "./Authenticate.css";
 
-function Authenticate({ handleModelCheck }) {
+function Authenticate({ handleModelCheck, emp }) {
   // useLocation to determine if employee portal or signup/login was clicked
   const location = useLocation();
   const { isEmployee } = location.state;
@@ -12,6 +12,7 @@ function Authenticate({ handleModelCheck }) {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [signUp, setSignUp] = useState(false);
+  const admin = emp && emp.admin ? true : false;
 
   const formSchema = yup.object().shape({
     // if employee login email not needed
@@ -70,6 +71,7 @@ function Authenticate({ handleModelCheck }) {
 
   return (
     <div className="form-container">
+      <h2>{isEmployee ? "Employee Login" : "Login/Signup!"}</h2>
       <>
         <form onSubmit={formik.handleSubmit}>
           {isEmployee ? (

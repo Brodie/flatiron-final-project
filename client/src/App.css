@@ -11,18 +11,9 @@ body{
 
 }
 
-@media only screen and (max-width: 756px){
-    .app{
-        width: 100%;
-    }
-    body{
-        background-image: none;
-    }
-}
-
 
 .job-title{
- 
+    
     font-size: 3rem;
     padding-bottom: 2px;
     font-family: 'Back To Nature-Light', sans-serif;
@@ -34,3 +25,21 @@ body{
     justify-content: center;
     border-bottom: 3px solid black;
 }
+
+.admin{
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    color: red;
+    width: 750px;
+    margin: auto;
+}
+
+/* @media only screen and (max-width: 1000px){
+
+    .app{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+} */

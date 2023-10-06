@@ -102,7 +102,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           {workObj.comments[0] ? (
             workObj.comments.map((com) => {
               return (
-                <>
+                <div key={com.id}>
                   <p key={com.id}>
                     <span style={{ color: "white" }}>
                       {com.user ? com.user.name : com.employee.name}:{" "}
@@ -115,7 +115,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
                       Delete Comment
                     </button>
                   ) : null}
-                </>
+                </div>
               );
             })
           ) : (

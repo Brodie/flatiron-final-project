@@ -24,21 +24,24 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
   return (
     <div className="nav">
       <div className="pond-icon"></div>
-      <h1 className="nav-title">Pond Company</h1>
+      <h1 className="nav-title">Backyard Ponderful Gardens</h1>
       <section className={`nav-menu  ${menu ? "open" : ""}`}>
         {menu ? (
           <ul className="open-menu">
             <li className="close" onClick={toggleMenu}>
               <div>X</div>
             </li>
+
             <li onClick={toggleMenu}>
               <Link to="/">Main Menu</Link>
             </li>
+
             <li onClick={toggleMenu}>
               <Link to="/work_order/complete">
                 {emp ? "My Complete Work" : "Our Completed Work"}
               </Link>
             </li>
+
             {/* admin link */}
             {emp && emp.admin ? (
               <li onClick={toggleMenu}>
@@ -51,6 +54,7 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
                 <li onClick={toggleMenu}>
                   <Link to="/home">{emp ? "My Jobs" : "Home"}</Link>
                 </li>
+
                 {emp ? null : (
                   <li onClick={toggleMenu}>
                     <Link to="/work_order/new">Submit Work Order</Link>

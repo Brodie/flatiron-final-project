@@ -65,7 +65,7 @@
     
 }
 
-@media (max-width: 1000px){
+/* @media (max-width: 1000px){
     .nav{
         display: flex;
         justify-content: space-evenly;
@@ -92,4 +92,4 @@
         transition: height 0.3s;
         overflow: hidden;
     }
-}
+} */

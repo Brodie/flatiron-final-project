@@ -6,6 +6,7 @@ import Authenticate from "./components/Authenticate/Authenticate";
 import Home from "./components/Home/Home";
 import WorkForm from "./components/WorkForm/WorkForm";
 import WorkCard from "./components/WorkCard/WorkCard";
+import Main from "./components/Main/Main";
 
 function App() {
   const [work, setWork] = useState([]);
@@ -56,15 +57,15 @@ function App() {
   return (
     <div className="app">
       <>
-        {emp && emp.admin ? (
-          <h1 style={{ color: "red" }}>LOGGED IN AS ADMIN</h1>
-        ) : null}
         <Navigation
           user={user}
           updateUser={updateUser}
           emp={emp}
           updateEmp={updateEmp}
         />
+        {emp && emp.admin ? (
+          <h1 className="admin">LOGGED IN AS ADMIN</h1>
+        ) : null}
         <Routes>
           <Route
             path={"/home"}
@@ -78,7 +79,7 @@ function App() {
             path={"/authenticate"}
             element={
               <div>
-                <Authenticate handleModelCheck={handleModelCheck} />
+                <Authenticate handleModelCheck={handleModelCheck} emp={emp} />
               </div>
             }
           />
@@ -132,7 +133,14 @@ function App() {
               </div>
             }
           />
-          <Route path={"/"} element={<div>hello</div>} />
+          <Route
+            path={"/"}
+            element={
+              <div>
+                <Main user={user} />
+              </div>
+            }
+          />
 
           {/* only render if admin */}
           {emp && emp.admin ? (
