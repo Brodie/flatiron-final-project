@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import "./Authenticate.css";
 
 function Authenticate({ handleModelCheck }) {
   // useLocation to determine if employee portal or signup/login was clicked
   const location = useLocation();
-  const { isEmployee } = location.state ? location.state.isEmployee : false;
+  const { isEmployee } = location.state;
 
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
@@ -68,115 +69,119 @@ function Authenticate({ handleModelCheck }) {
   });
 
   return (
-    <>
-      <form onSubmit={formik.handleSubmit}>
-        {isEmployee ? (
-          <>
-            <label htmlFor="username">Username</label>
-            <br />
-            <input
-              id="username"
-              name="username"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-            />
-          </>
-        ) : (
-          <>
-            <label htmlFor="email">Email</label>
-            <br />
-            <input
-              id="email"
-              name="email"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-          </>
-        )}
-        <br />
-        {signUp ? (
-          <>
-            <label htmlFor="name">Name</label>
-            <br />
-            <input
-              id="name"
-              name="name"
-              type="name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.name}
-            />
-            <br />
-          </>
-        ) : null}
-        <>
-          <label htmlFor="password">Password</label>
+    <div className="form-container">
+      <>
+        <form onSubmit={formik.handleSubmit}>
+          {isEmployee ? (
+            <>
+              <label htmlFor="username">Username</label>
+              <br />
+              <input
+                id="username"
+                name="username"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.username}
+              />
+            </>
+          ) : (
+            <>
+              <label htmlFor="email">Email</label>
+              <br />
+              <input
+                id="email"
+                name="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+              />
+            </>
+          )}
           <br />
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-        </>
-        <br />
-        {signUp ? (
+          {signUp ? (
+            <>
+              <label htmlFor="name">Name</label>
+              <br />
+              <input
+                id="name"
+                name="name"
+                type="name"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+              />
+              <br />
+            </>
+          ) : null}
           <>
-            <label htmlFor="passConfirm">Re-Enter Password</label>
+            <label htmlFor="password">Password</label>
             <br />
             <input
-              id="passConfirm"
-              name="passConfirm"
+              id="password"
+              name="password"
               type="password"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.passConfirm}
+              value={formik.values.password}
             />
           </>
-        ) : null}
-        <div style={{ color: "red" }}>
-          <>
-            {isEmployee ? (
-              <>
-                {formik.errors.username ? (
-                  <p>{formik.errors.username}</p>
-                ) : null}
-              </>
-            ) : (
-              <>{formik.errors.email ? <p>{formik.errors.email}</p> : null}</>
-            )}
-          </>
-          <>{formik.errors.password ? <p>{formik.errors.password}</p> : null}</>
-          <>
-            {formik.errors.passConfirm ? (
-              <p>{formik.errors.passConfirm}</p>
-            ) : null}
-          </>
-        </div>
-        <button type="submit">{signUp ? "Sign Up" : "Login"}</button>
-      </form>
+          <br />
+          {signUp ? (
+            <>
+              <label htmlFor="passConfirm">Re-Enter Password</label>
+              <br />
+              <input
+                id="passConfirm"
+                name="passConfirm"
+                type="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.passConfirm}
+              />
+            </>
+          ) : null}
+          <div style={{ color: "red" }}>
+            <>
+              {isEmployee ? (
+                <>
+                  {formik.errors.username ? (
+                    <p>{formik.errors.username}</p>
+                  ) : null}
+                </>
+              ) : (
+                <>{formik.errors.email ? <p>{formik.errors.email}</p> : null}</>
+              )}
+            </>
+            <>
+              {formik.errors.password ? <p>{formik.errors.password}</p> : null}
+            </>
+            <>
+              {formik.errors.passConfirm ? (
+                <p>{formik.errors.passConfirm}</p>
+              ) : null}
+            </>
+          </div>
+          <button type="submit">{signUp ? "Sign Up" : "Login"}</button>
+        </form>
 
-      <>
-        {errors.map((err) => (
-          <p key={err} style={{ color: "red" }}>
-            {err}
-          </p>
-        ))}
+        <>
+          {errors.map((err) => (
+            <p key={err} style={{ color: "red" }}>
+              {err}
+            </p>
+          ))}
+        </>
+
+        {isEmployee ? null : (
+          <div>
+            <h3>{signUp ? "Already a member?" : "Not a member?"}</h3>
+            <button onClick={() => setSignUp((prev) => !prev)}>
+              {signUp ? "Login" : "Sign-up"}
+            </button>
+          </div>
+        )}
       </>
-
-      {isEmployee ? null : (
-        <div>
-          <h3>{signUp ? "Already a member?" : "Not a member?"}</h3>
-          <button onClick={() => setSignUp((prev) => !prev)}>
-            {signUp ? "Login" : "Sign-up"}
-          </button>
-        </div>
-      )}
-    </>
+    </div>
   );
 }
 
