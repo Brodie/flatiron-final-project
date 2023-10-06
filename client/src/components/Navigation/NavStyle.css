@@ -1,7 +1,7 @@
 .nav{
     display: flex;
     justify-content: space-between;
-    background-color: #49be25;
+    background-color: #99b331;
     align-items: center;
     height: fit-content;
     padding: 10px;
@@ -10,7 +10,7 @@
 
 
 .nav-menu{
-    background-color:  #49be25;
+    background-color:  #99b331;
   
     display: flex;
     flex-direction: column;
