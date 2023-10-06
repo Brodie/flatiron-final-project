@@ -54,100 +54,102 @@ function App() {
   }, []);
 
   return (
-    <>
-      {emp && emp.admin ? (
-        <h1 style={{ color: "red" }}>LOGGED IN AS ADMIN</h1>
-      ) : null}
-      <Navigation
-        user={user}
-        updateUser={updateUser}
-        emp={emp}
-        updateEmp={updateEmp}
-      />
-      <Routes>
-        <Route
-          path={"/home"}
-          element={
-            <div>
-              <Home user={user} work={work} setWork={setWork} emp={emp} />
-            </div>
-          }
-        />
-        <Route
-          path={"/authenticate"}
-          element={
-            <div>
-              <Authenticate handleModelCheck={handleModelCheck} />
-            </div>
-          }
-        />
-        <Route
-          path={"/work_order/complete"}
-          element={
-            <div>
-              {/* if employee render only employee jobs */}
-              <h1>{emp ? "My " : "Our "}Completed Jobs</h1>
-              {emp
-                ? empWork.map((workObj) => {
-                    if (workObj.completed === true) {
-                      return (
-                        <WorkCard
-                          key={workObj.id}
-                          setWork={setWork}
-                          work={work}
-                          workObj={workObj}
-                          emp={emp}
-                          user={user}
-                        />
-                      );
-                    }
-                  })
-                : work.map((workObj) => {
-                    if (workObj.completed === true) {
-                      return (
-                        <WorkCard
-                          key={workObj.id}
-                          setWork={setWork}
-                          work={work}
-                          workObj={workObj}
-                          emp={emp}
-                          user={user}
-                        />
-                      );
-                    }
-                  })}
-            </div>
-          }
-        />
-        <Route
-          path={"/work_order/new"}
-          element={
-            <div>
-              <WorkForm user={user} addWorkOrder={addWorkOrder} />
-            </div>
-          }
-        />
-        <Route path={"/"} element={<div>hello</div>} />
-
-        {/* only render if admin */}
+    <div className="app">
+      <>
         {emp && emp.admin ? (
-          <Route
-            path={"work_order/all"}
-            element={work.map((workObj) => {
-              return (
-                <WorkCard
-                  key={workObj.id}
-                  setWork={setWork}
-                  work={work}
-                  workObj={workObj}
-                  emp={emp}
-                />
-              );
-            })}
-          />
+          <h1 style={{ color: "red" }}>LOGGED IN AS ADMIN</h1>
         ) : null}
-      </Routes>
-    </>
+        <Navigation
+          user={user}
+          updateUser={updateUser}
+          emp={emp}
+          updateEmp={updateEmp}
+        />
+        <Routes>
+          <Route
+            path={"/home"}
+            element={
+              <div>
+                <Home user={user} work={work} setWork={setWork} emp={emp} />
+              </div>
+            }
+          />
+          <Route
+            path={"/authenticate"}
+            element={
+              <div>
+                <Authenticate handleModelCheck={handleModelCheck} />
+              </div>
+            }
+          />
+          <Route
+            path={"/work_order/complete"}
+            element={
+              <div className="card-container">
+                {/* if employee render only employee jobs */}
+                <h1>{emp ? "My " : "Our "}Completed Jobs</h1>
+                {emp
+                  ? empWork.map((workObj) => {
+                      if (workObj.completed === true) {
+                        return (
+                          <WorkCard
+                            key={workObj.id}
+                            setWork={setWork}
+                            work={work}
+                            workObj={workObj}
+                            emp={emp}
+                            user={user}
+                          />
+                        );
+                      }
+                    })
+                  : work.map((workObj) => {
+                      if (workObj.completed === true) {
+                        return (
+                          <WorkCard
+                            key={workObj.id}
+                            setWork={setWork}
+                            work={work}
+                            workObj={workObj}
+                            emp={emp}
+                            user={user}
+                          />
+                        );
+                      }
+                    })}
+              </div>
+            }
+          />
+          <Route
+            path={"/work_order/new"}
+            element={
+              <div>
+                <WorkForm user={user} addWorkOrder={addWorkOrder} />
+              </div>
+            }
+          />
+          <Route path={"/"} element={<div>hello</div>} />
+
+          {/* only render if admin */}
+          {emp && emp.admin ? (
+            <Route
+              path={"work_order/all"}
+              element={work.map((workObj) => {
+                return (
+                  <WorkCard
+                    key={workObj.id}
+                    setWork={setWork}
+                    work={work}
+                    workObj={workObj}
+                    emp={emp}
+                  />
+                );
+              })}
+            />
+          ) : null}
+        </Routes>
+      </>
+    </div>
   );
 }
 

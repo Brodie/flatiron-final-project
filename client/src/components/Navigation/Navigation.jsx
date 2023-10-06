@@ -24,11 +24,11 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
   return (
     <div className="nav">
       <h1 className="nav-title">Pond Company</h1>
-      <section className="nav-menu">
+      <section className={`nav-menu  ${menu ? "open" : ""}`}>
         {menu ? (
-          <ul>
+          <ul className="open-menu">
             <li className="close" onClick={() => setMenu(!menu)}>
-              <Link>x</Link>
+              <div>X</div>
             </li>
             <li>
               <Link to="/">Main Menu</Link>
@@ -75,8 +75,8 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
             )}
           </ul>
         ) : (
-          <div className="hamburger-menu" onClick={toggleMenu}>
-            <RxHamburgerMenu size={50} />
+          <div onClick={toggleMenu} className="hamburger-menu">
+            <RxHamburgerMenu style={{ color: "black" }} size={50} />
           </div>
         )}
       </section>

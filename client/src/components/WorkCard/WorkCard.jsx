@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CommentForm from "../CommentForm/CommentForm";
+import "./WorkCard.css";
 
 function WorkCard({ workObj, setWork, work, user, emp }) {
   const [showForm, setShowForm] = useState(false);
@@ -67,7 +68,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           return (
             <img
               key={img.id}
-              src={`/static/uploads/${img.id}`}
+              src={`/images/${img.id}`}
               style={{ height: "100px" }}
             />
           );

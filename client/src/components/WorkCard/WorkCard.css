@@ -1,0 +1,12 @@
+.card-container{
+    background-color: #5a6216;
+    color: wheat;
+    opacity: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
