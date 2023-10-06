@@ -57,31 +57,31 @@ function WorkForm({ user, addWorkOrder }) {
       <h1 className="form-title">Submit a Work Order for Us!</h1>
       <form className="work-order-form" onSubmit={formik.handleSubmit}>
         <label htmlFor="name">Name:</label>
-        <br />
+
         <input id="name" readOnly={true} value={user.name.toUpperCase()} />
         <br />
         <label htmlFor="email">Email:</label>
-        <br />
+
         <input id="email" readOnly={true} value={user.email} />
         <br />
 
-        <br />
         <label htmlFor="info">Add Work details here!</label>
-        <br />
+
         <textarea
           id="info"
           name="info"
-          style={{ height: "80px" }}
+          className="textarea"
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.info}
         />
         <br />
         <label htmlFor="image">Upload Image:</label>
-        <br />
+
         <input
           id="image"
           name="image"
+          className="file"
           type="file"
           onChange={(e) => {
             formik.setFieldValue("image", e.currentTarget.files[0]);
@@ -89,7 +89,7 @@ function WorkForm({ user, addWorkOrder }) {
         />
         <br />
         <label htmlFor="image_name">Image Description</label>
-        <br />
+
         <input
           id="image_name"
           name="image_name"
@@ -97,8 +97,8 @@ function WorkForm({ user, addWorkOrder }) {
           value={formik.values.image_name}
         />
         <br />
-        <br />
-        <p style={{ color: "red" }}>{formik.errors.info}</p>
+
+        <p className="formik-errors">{formik.errors.info}</p>
         <button type="submit">Submit Work Order!</button>
       </form>
       <h2>
