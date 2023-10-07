@@ -47,14 +47,18 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
     });
   };
 
+  const completeTime = workObj.completed
+    ? workObj.completed_at.slice(0, 10)
+    : null;
+
   return (
     <div className="card-container">
       <h2>Submitted By: {workObj.requested_by.name}</h2>
 
       {/* completed ? completed : assigned to  */}
       {workObj.completed ? (
-        <h3>
-          Completed at {workObj.completed_at} by {workObj.assigned_to.name}
+        <h3 className="complete-assign">
+          Completed on {completeTime} by {workObj.assigned_to.name}
         </h3>
       ) : (
         <p>
@@ -62,7 +66,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           {workObj.assigned_to.name}
         </p>
       )}
-      <p>{workObj.info}</p>
+      <p className="work-info">{workObj.info}</p>
       <div className="image-container">
         {workObj.images.map((img) => {
           return (
@@ -103,8 +107,8 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
             workObj.comments.map((com) => {
               return (
                 <div key={com.id}>
-                  <p key={com.id}>
-                    <span style={{ color: "white" }}>
+                  <p key={com.id} className="comment-content">
+                    <span className="comment-poster">
                       {com.user ? com.user.name : com.employee.name}:{" "}
                     </span>
                     {com.comment_text}
@@ -128,6 +132,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
               </button>
               {showForm && (
                 <CommentForm
+                  setShowForm={setShowForm}
                   setWork={setWork}
                   work={work}
                   workObj={workObj}

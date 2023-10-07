@@ -1,5 +1,4 @@
 import os
-from os.path import join, dirname, realpath
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
@@ -10,18 +9,16 @@ from flask_marshmallow import Marshmallow
 from flask_cors import CORS
 
 
-from dotenv import load_dotenv
-
-
 app = Flask(__name__)
 
 
 app.secret_key = os.environ.get("APP_SECRET_KEY")
-app.static_url_path = "/static"
 
 
 app.config["UPLOAD_EXTENSIONS"] = [".jpg", ".png"]
 app.config["UPLOAD_PATH"] = "image_uploads"
+
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.json.compact = False

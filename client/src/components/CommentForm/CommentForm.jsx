@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-function CommentForm({ workObj, poster, work, setWork }) {
+function CommentForm({ workObj, poster, work, setWork, setShowForm }) {
   const [errors, setErrors] = useState([]);
 
   const formSchema = yup.object().shape({
@@ -40,6 +40,7 @@ function CommentForm({ workObj, poster, work, setWork }) {
               return obj;
             });
             setWork(updatedWork);
+            setShowForm(false);
           });
         } else {
           res.json().then((err) => {

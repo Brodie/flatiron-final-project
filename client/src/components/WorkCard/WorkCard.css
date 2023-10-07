@@ -9,12 +9,53 @@
     padding: 20px 20px;
     box-sizing: border-box;
     border-bottom: 2px solid black;
+    font-family: Arial, sans-serif;
 }
 
 .card-image{
     width: 600px;
     border: 2px solid black;
     opacity: 1
+}
+
+.work-info{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    
+    line-height: 1.5;
+    color: white;
+    text-align: center;
+    padding: 10px; 
+    border: 1px solid white;
+    border-radius: 15px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.comment-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comment-content{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 5px;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin: 0;
+    margin-bottom: 3px;
+}
+
+.comment-poster{
+    font-weight: bolder;
+}
+
+.complete-assign{
+    font-size: 1rem;
 }
 
 

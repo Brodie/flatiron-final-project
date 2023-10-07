@@ -1,0 +1,15 @@
+@import url('https://fonts.cdnfonts.com/css/back-to-nature');
+
+.home-title{
+    background-color: #5a6216;
+    display: flex;
+    justify-content: center;
+    width: 750px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    color: white;
+    font-family: 'Back To Nature', sans-serif;
+    font-size: 4rem;
+}

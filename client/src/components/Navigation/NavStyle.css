@@ -4,6 +4,7 @@
 .nav{
     display: flex;
     justify-content: space-evenly;
+    background-image: linear-gradient(#5a6216, #99b331 );
     background-color: #99b331;
     align-items: center;
     height: fit-content;
@@ -13,7 +14,6 @@
 
 
 .nav-menu{
-    background-color:  #99b331;
   
     display: flex;
     flex-direction: column;
@@ -39,11 +39,18 @@
     font-size: 4rem;
     letter-spacing: 2px;
     margin-right: 90px;
+    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-width: 1px;
+    
 
 }
 
 .open-menu{
-    list-style-type: square;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    align-items: first baseline;
+    padding: 5px;
     
 }
 
@@ -64,6 +71,11 @@
     width: 100px;
     
 }
+
+li:hover{
+    background-color: #99b331;
+}
+
 
 /* @media (max-width: 1000px){
     .nav{

@@ -3,7 +3,8 @@
 
 .workform-container{
     font-family: Arial, sans-serif;
-    background-color: #31b38c;
+    background-image: linear-gradient( #99b331, #31b38c);
+    /* background-color: #31b38c; */
     display: flex;
     flex-direction: column;
     justify-content: center;

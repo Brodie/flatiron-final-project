@@ -24,6 +24,7 @@ body{
     display: flex;
     justify-content: center;
     border-bottom: 3px solid black;
+
 }
 
 .admin{
@@ -38,6 +39,26 @@ body{
 .card-container{
     margin-top: 10px;
 }
+
+button{
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+
+button:hover{
+    background-color: #45a049;
+}
+
 
 /* @media only screen and (max-width: 1000px){
 

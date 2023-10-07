@@ -1,5 +1,6 @@
 import React from "react";
 import WorkCard from "../WorkCard/WorkCard";
+import "./Home.css";
 
 function Home({ work, user, setWork, emp }) {
   const userWorkOrders = user
@@ -18,7 +19,7 @@ function Home({ work, user, setWork, emp }) {
 
   return (
     <div>
-      <h1>My Work Orders</h1>
+      <h1 className="home-title">My Work Orders</h1>
       {ordersToMap.map((workObj) => {
         return (
           <WorkCard
