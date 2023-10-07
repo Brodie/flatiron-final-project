@@ -38,6 +38,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
       if (r.ok) {
         r.json().then((data) => {
           alert(data.message);
+          window.location.reload();
         });
       } else {
         r.json().then((data) => {
@@ -115,7 +116,10 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
                   </p>
 
                   {emp && emp.admin ? (
-                    <button onClick={() => deleteComment(com.id)}>
+                    <button
+                      className="delete-button"
+                      onClick={() => deleteComment(com.id)}
+                    >
                       Delete Comment
                     </button>
                   ) : null}
