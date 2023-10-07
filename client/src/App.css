@@ -60,11 +60,12 @@ button:hover{
 }
 
 
-/* @media only screen and (max-width: 1000px){
-
-    .app{
-        display: flex;
-        align-items: center;
-        justify-content: center;
+@media (max-width: 700px) {
+    .title-container, .admin, button {
+        width: 100%; 
     }
-} */
+
+    .title-container {
+        text-align: center; 
+    }
+}

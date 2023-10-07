@@ -68,3 +68,17 @@
 .link:hover{
     background-color: #45a049
 }
+
+@media (max-width: 600px) {
+    .main-container {
+        padding: 10px 10px; 
+    }
+
+    .what-do-title, .services-title {
+        font-size: 2rem; 
+    }
+
+    .what-do, .services {
+        font-size: 14px; 
+    }
+}

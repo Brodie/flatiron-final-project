@@ -73,23 +73,46 @@
     font-weight: bolder;
 }
 
-
-/* @media (max-width: 1000px){
-    .card-container{
-    background-color: #5a6216;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    padding: 20px 20px;
-    box-sizing: border-box;
-    width: 100%;
-        
+@media (max-width: 600px) {
+    .card-container {
+        max-width: 100%; 
+        padding: 10px; 
+        font-size: 14px; 
     }
-    .card-image{
-        width: 80%
+
+    .card-image {
+        width: 100%; 
+        max-height: none; 
     }
-} */
 
+    .work-info {
+        font-size: 14px; 
+        padding: 5px; 
+    }
 
+    .comment-container {
+        padding: 10px; 
+    }
+
+    .comment-content {
+        font-size: 14px; 
+        padding: 5px;
+        margin-bottom: 5px; 
+    }
+    
+    .comment-poster {
+        font-size: 14px; 
+    }
+
+    .complete-assign {
+        font-size: 0.8rem;
+    }
+
+    .delete-button {
+        padding: 5px 10px;
+    }
+
+    .complete-button {
+        font-size: 1rem; 
+    }
+}

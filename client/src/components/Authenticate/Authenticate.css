@@ -15,3 +15,15 @@
     color: red;
     font-weight: bolder;
 }
+
+
+@media (max-width: 600px) {
+    .form-container {
+        width: 100%;
+        padding: 20px 0; 
+    }
+
+    .errors {
+        font-size: 16px;
+    }
+}

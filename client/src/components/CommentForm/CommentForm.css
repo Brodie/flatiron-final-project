@@ -24,3 +24,19 @@
     right: 10px;
     cursor: pointer;
   }
+
+  @media (max-width: 600px) {
+    .overlay {
+        background: rgba(0, 0, 0, 0.9);
+    }
+
+    .modalContainer {
+        width: 90%;
+        padding: 10px; 
+    }
+
+    .closeBtn {
+        top: 5px; 
+        right: 5px;
+    }
+}
