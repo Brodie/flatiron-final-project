@@ -235,13 +235,8 @@ class WorkOrders(Resource):
             unique_str = str(uuid.uuid4())[:8]
             image.filename = f"{unique_str}_{image.filename}"
 
-        #
-        # change this before deploying
-        # either add admin role that can create employees from front end
-        # or create an admin employee to assign work to
-        #
-        # using test employee to test frontend
-        emps = Employee.query.filter(Employee.username == "brodie").first()
+        emps = Employee.query.all()
+
         user = User.query.filter(User.id == session["user_id"]).first()
 
         #  handling file uploads
@@ -260,7 +255,7 @@ class WorkOrders(Resource):
             db.session.add(img)
             db.session.commit()
 
-        wo = Work(info=info, requested_by=user, assigned_to=emps, images=img_list)
+        wo = Work(info=info, requested_by=user, assigned_to=rc(emps), images=img_list)
 
         try:
             db.session.add(wo)
@@ -354,9 +349,6 @@ class Comments(Resource):
 
 
 class CommentById(Resource):
-    def patch(self, id):
-        pass
-
     def delete(self, id):
         comm = Comment.query.filter(Comment.id == id).first()
         try:
