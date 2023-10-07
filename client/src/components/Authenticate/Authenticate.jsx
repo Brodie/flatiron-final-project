@@ -142,7 +142,7 @@ function Authenticate({ handleModelCheck, emp }) {
               />
             </>
           ) : null}
-          <div style={{ color: "red" }}>
+          <div className="errors">
             <>
               {isEmployee ? (
                 <>

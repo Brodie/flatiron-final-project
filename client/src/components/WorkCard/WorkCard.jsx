@@ -81,7 +81,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
       </div>
 
       {emp && emp.id === workObj.assigned_to.id && !workObj.completed ? (
-        <button style={{ color: "red" }} onClick={handleComplete}>
+        <button className="complete-button" onClick={handleComplete}>
           {confirm ? (
             <span style={{ fontWeight: "bolder" }}>CONFIRM</span>
           ) : (
@@ -90,18 +90,19 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
         </button>
       ) : null}
 
-      <button
-        style={{ marginLeft: "4px" }}
-        onClick={() => setOpen((prev) => !prev)}
-      >
-        {open ? "Hide " : "Show "}Comments
-      </button>
       {confirm ? (
         <>
           <br />
           <button onClick={() => setConfirm(false)}>Cancel</button>
         </>
       ) : null}
+      <button
+        style={{ marginLeft: "4px" }}
+        onClick={() => setOpen((prev) => !prev)}
+      >
+        {open ? "Hide " : "Show "}Comments
+      </button>
+
       {open && (
         <div className="comment-container">
           {workObj.comments[0] ? (
@@ -129,7 +130,9 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           ) : (
             <p>No Comments</p>
           )}
-          {(emp || user) && user?.id === workObj.requested_by?.id ? (
+
+          {(emp?.id === workObj.assigned_to?.id ||
+            user?.id === workObj.requested_by?.id) && (
             <>
               <button onClick={() => setShowForm((prev) => !prev)}>
                 {showForm ? "Close" : "Add Comment"}
@@ -144,7 +147,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
                 />
               )}
             </>
-          ) : null}
+          )}
         </div>
       )}
     </div>

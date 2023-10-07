@@ -137,7 +137,7 @@ function App() {
             path={"/"}
             element={
               <div>
-                <Main user={user} />
+                <Main user={user} emp={emp} />
               </div>
             }
           />

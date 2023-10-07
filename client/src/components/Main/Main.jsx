@@ -2,7 +2,7 @@ import React from "react";
 import "../Main/Main.css";
 import { Link, useNavigate } from "react-router-dom";
 
-function Main({ user }) {
+function Main({ user, emp }) {
   const navigate = useNavigate();
 
   return (
@@ -28,6 +28,8 @@ function Main({ user }) {
       <div className="link">
         {user ? (
           <Link to="/work_order/new">Submit New Order!</Link>
+        ) : emp ? (
+          <Link to="/home">Homepage</Link>
         ) : (
           <Link to="/authenticate" state={{ isEmployee: false }}>
             Login / Signup!

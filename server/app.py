@@ -314,7 +314,6 @@ class Images(Resource):
 class Comments(Resource):
     def post(self):
         data = request.get_json()
-        print(data)
         if not data.get("email") and not data.get("username"):
             return {"errors": ["must be logged in to add comment"]}, 401
 
@@ -327,7 +326,9 @@ class Comments(Resource):
             poster = User.query.filter(User.email == data["email"]).first()
             comment.user = poster
         else:
-            poster = Employee.query.filter(Employee.username == data["username"])
+            poster = Employee.query.filter(
+                Employee.username == data["username"]
+            ).first()
             comment.employee = poster
 
         wo = Work.query.filter(Work.id == data["work_order_id"]).first()

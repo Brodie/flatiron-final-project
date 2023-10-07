@@ -68,6 +68,11 @@
     background-color:red;
 }
 
+.complete-button{
+    color: brown;
+    font-weight: bolder;
+}
+
 
 /* @media (max-width: 1000px){
     .card-container{
