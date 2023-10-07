@@ -15,7 +15,8 @@
 .card-image{
     width: 600px;
     border: 2px solid black;
-    opacity: 1
+    opacity: 1;
+    max-height: 500px;
 }
 
 .work-info{

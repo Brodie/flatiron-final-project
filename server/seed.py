@@ -44,6 +44,8 @@ fake = Faker()
 
 
 with app.app_context():
+    print("deleting all data")
+
     for user in User.query.all():
         db.session.delete(user)
     for emp in Employee.query.all():
@@ -56,35 +58,35 @@ with app.app_context():
         db.session.delete(img)
 
     db.session.commit()
+    print("done")
 
-    first = [
-        "Emma",
-        "Liam",
-        "Olivia",
-        "Noah",
-        "Ava",
-    ]
+    first = ["Emma", "Liam", "Olivia", "Noah", "Ava", "Adam"]
 
-    last = [
-        "Smith",
-        "Johnson",
-        "Brown",
-        "Davis",
-        "Wilson",
-    ]
+    last = ["Smith", "Johnson", "Brown", "Davis", "Wilson", "Taylor"]
+
+    print("creating employees")
 
     for i in range(5):
-        fname = rc(first)
-        lname = rc(last)
+        fname = first[i]
+        lname = last[i]
 
         emp = Employee(name=f"{fname} {lname}", username=fname)
         emp.password_hash = "empexample"
 
         db.session.add(emp)
         db.session.commit()
+    print("done")
+    print("creating admin")
+    admin = Employee(name="brodie ashcraft", username="admin", admin=True)
+    admin.password_hash = "Flatiron#123"
 
-        admin = Employee(name="brodie ashcraft", username="admin", admin=True)
-        admin.password_hash = "Flatiron#123"
+    db.session.add(admin)
+    db.session.commit()
+    print("done")
 
-        db.session.add(admin)
-        db.session.commit()
+# users created from front end
+# Matt: pass = daredevil
+# Bruce pass = batman
+# thor pass = asgard
+# Reed pass = fantastic
+# jean pass = phoenix
