@@ -22,7 +22,17 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((data) => {
-            console.log(data);
+            const work_id = data.work_id;
+            const updatedWork = work.map((obj) => {
+              if (obj.id === work_id) {
+                return {
+                  ...obj,
+                  completed: true,
+                };
+              }
+              return obj;
+            });
+            setWork(updatedWork);
           });
         }
       });
@@ -108,7 +118,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           {workObj.comments[0] ? (
             workObj.comments.map((com) => {
               return (
-                <div key={com.id}>
+                <div style={{ display: "flex" }} key={com.id}>
                   <p key={com.id} className="comment-content">
                     <span className="comment-poster">
                       {com.user ? com.user.name : com.employee.name}:{" "}
@@ -116,7 +126,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
                     {com.comment_text}
                   </p>
 
-                  {emp && emp.admin ? (
+                  {(emp && emp.admin) || (user && user.id === com.user_id) ? (
                     <button
                       className="delete-button"
                       onClick={() => deleteComment(com.id)}

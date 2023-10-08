@@ -284,7 +284,12 @@ class WorkOrderById(Resource):
         if data.get("completed"):
             wo.complete = True
             db.session.commit()
-            return {"message": f"Work marked complete at {wo.completed_at}"}, 202
+            return {
+                "data": {
+                    "message": f"Work marked complete at {wo.completed_at}",
+                    "work_id": wo.id,
+                }
+            }, 202
 
     def delete(self, id):
         pass
