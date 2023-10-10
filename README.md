@@ -50,6 +50,8 @@ This will start up the backend!
 
 Now that both the Front and Back ends are up and running, the application can be used!
 
+To test/use already created employees, check the seed.py file for employee login info
+
 ## Information
 
 This started as a website I wanted to build for my Dad, but I soon realized the scope of an actual website is much larger and would consume far more time than I had to work on this project.
