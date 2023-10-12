@@ -371,6 +371,12 @@ class CommentById(Resource):
             return {"errors": errors}, 422
 
 
+class Employees(Resource):
+    def post():
+        pass
+
+
+api.add_resource(Employees, "/employee")
 api.add_resource(Comments, "/comment/new")
 api.add_resource(CommentById, "/comment/<int:id>")
 api.add_resource(Images, "/images/<int:id>")
