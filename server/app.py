@@ -372,8 +372,24 @@ class CommentById(Resource):
 
 
 class Employees(Resource):
-    def post():
-        pass
+    def post(self):
+        data = request.get_json()
+        emp = Employee(
+            name=data["name"], username=data["username"], admin=data["admin"]
+        )
+        emp.password_hash = data["password"]
+        try:
+            db.session.add(emp)
+            db.session.commit()
+            return {"message": "Employee Created"}, 201
+        except IntegrityError as e:
+            errors = []
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
 
 
 api.add_resource(Employees, "/employee")

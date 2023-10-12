@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CreateEmp.css";
 import { useFormik } from "formik";
 import * as yup from "yup";
 
 function CreateEmp({ emp }) {
+  const [errors, setErrors] = useState([]);
+
   const formSchema = yup.object().shape({
     username: yup.string().required("Please Include Username"),
     name: yup.string().required("Please Enter Name"),
@@ -23,7 +25,29 @@ function CreateEmp({ emp }) {
       admin: false,
     },
     validationSchema: formSchema,
-    onSubmit: (values) => {},
+    onSubmit: (values, { resetForm }) => {
+      fetch("/employee", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      }).then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
+            alert(data.message);
+            resetForm();
+          });
+        } else {
+          res.json().then((err) => {
+            setTimeout(() => {
+              setErrors([]);
+            }, 4000);
+            setErrors([...errors, err.errors]);
+          });
+        }
+      });
+    },
   });
 
   return (
@@ -76,7 +100,7 @@ function CreateEmp({ emp }) {
         <input
           className="admin-box"
           id="admin"
-          name="admmin"
+          name="admin"
           onChange={formik.handleChange}
           type="checkbox"
           value={formik.values.admin}
@@ -95,6 +119,13 @@ function CreateEmp({ emp }) {
         <br />
         <button type="submit">Submit</button>
       </form>
+      <>
+        {errors.map((err) => (
+          <p key={err} className="errors">
+            {err}
+          </p>
+        ))}
+      </>
     </div>
   );
 }
