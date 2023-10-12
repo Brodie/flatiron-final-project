@@ -1,0 +1,27 @@
+.form-container{
+    background-image: linear-gradient( #99b331, #31b38c);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    margin:  auto;
+    margin-top: 10px;
+    padding: 50px 0;
+    border: 2px solid black;
+
+}
+
+.admin-box{
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.errors{
+    color: red;
+    font-weight: bolder;
+}
+p{
+    background-color: black;
+    border-radius: 5px;
+    padding-left: 2px;
+}
