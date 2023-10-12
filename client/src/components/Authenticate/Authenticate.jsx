@@ -12,7 +12,6 @@ function Authenticate({ handleModelCheck, emp }) {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
   const [signUp, setSignUp] = useState(false);
-  const admin = emp && emp.admin ? true : false;
 
   const formSchema = yup.object().shape({
     // if employee login email not needed

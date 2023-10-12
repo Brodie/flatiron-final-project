@@ -7,6 +7,7 @@ import Home from "./components/Home/Home";
 import WorkForm from "./components/WorkForm/WorkForm";
 import WorkCard from "./components/WorkCard/WorkCard";
 import Main from "./components/Main/Main";
+import CreateEmp from "./components/CreateEmp/CreateEmp";
 
 function App() {
   const [work, setWork] = useState([]);
@@ -144,20 +145,26 @@ function App() {
 
           {/* only render if admin */}
           {emp && emp.admin ? (
-            <Route
-              path={"work_order/all"}
-              element={work.map((workObj) => {
-                return (
-                  <WorkCard
-                    key={workObj.id}
-                    setWork={setWork}
-                    work={work}
-                    workObj={workObj}
-                    emp={emp}
-                  />
-                );
-              })}
-            />
+            <>
+              <Route
+                path={"work_order/all"}
+                element={work.map((workObj) => {
+                  return (
+                    <WorkCard
+                      key={workObj.id}
+                      setWork={setWork}
+                      work={work}
+                      workObj={workObj}
+                      emp={emp}
+                    />
+                  );
+                })}
+              />
+              <Route
+                path={"employee/create"}
+                element={<CreateEmp emp={emp} />}
+              />
+            </>
           ) : null}
         </Routes>
       </>

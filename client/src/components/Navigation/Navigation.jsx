@@ -44,9 +44,14 @@ function Navigation({ user, updateUser, emp, updateEmp }) {
 
             {/* admin link */}
             {emp && emp.admin ? (
-              <li onClick={toggleMenu}>
-                <Link to="/work_order/all">All Work</Link>
-              </li>
+              <>
+                <li onClick={toggleMenu}>
+                  <Link to="/work_order/all">All Work</Link>
+                </li>
+                <li>
+                  <Link to="/employee/create">Add Employee</Link>
+                </li>
+              </>
             ) : null}
 
             {user || emp ? (

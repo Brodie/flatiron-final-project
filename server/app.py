@@ -371,6 +371,28 @@ class CommentById(Resource):
             return {"errors": errors}, 422
 
 
+class Employees(Resource):
+    def post(self):
+        data = request.get_json()
+        emp = Employee(
+            name=data["name"], username=data["username"], admin=data["admin"]
+        )
+        emp.password_hash = data["password"]
+        try:
+            db.session.add(emp)
+            db.session.commit()
+            return {"message": "Employee Created"}, 201
+        except IntegrityError as e:
+            errors = []
+
+            if isinstance(e, (IntegrityError)):
+                for err in e.orig.args:
+                    errors.append(str(err))
+
+            return {"errors": errors}, 422
+
+
+api.add_resource(Employees, "/employee")
 api.add_resource(Comments, "/comment/new")
 api.add_resource(CommentById, "/comment/<int:id>")
 api.add_resource(Images, "/images/<int:id>")
@@ -383,3 +405,4 @@ api.add_resource(Signup, "/signup")
 
 if __name__ == "__main__":
     app.run(port=5555, debug=True)
+# test
