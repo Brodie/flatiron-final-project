@@ -36,10 +36,32 @@ function App() {
       })
     : [];
 
+  // originalWork is used to filter work orders and save the original work orders
+  const [originalWork, setOriginalWork] = useState([]);
+
+  const filteredWork = (e) => {
+    if (e.target.value === "completed") {
+      setWork(
+        originalWork.filter((workObj) => {
+          return workObj.completed === true;
+        })
+      );
+    } else if (e.target.value === "incomplete") {
+      setWork(
+        originalWork.filter((workObj) => {
+          return workObj.completed === false;
+        })
+      );
+    } else {
+      setWork(originalWork);
+    }
+  };
+
   useEffect(() => {
     fetch("/work_order").then((res) => {
       res.json().then((works) => {
         setWork(works.work_orders);
+        setOriginalWork(works.work_orders);
       });
     });
   }, []);
@@ -148,17 +170,36 @@ function App() {
             <>
               <Route
                 path={"work_order/all"}
-                element={work.map((workObj) => {
-                  return (
-                    <WorkCard
-                      key={workObj.id}
-                      setWork={setWork}
-                      work={work}
-                      workObj={workObj}
-                      emp={emp}
-                    />
-                  );
-                })}
+                element={
+                  <>
+                    <div className="admin-job-title">
+                      <h1 className="job-title">All Jobs</h1>
+                      <div>
+                        <select
+                          className="select"
+                          type="dropdown"
+                          onChange={filteredWork}
+                        >
+                          <option value="all">All</option>
+                          <option value="completed">Completed</option>
+                          <option value="incomplete">Incomplete</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {work.map((workObj) => {
+                      return (
+                        <WorkCard
+                          key={workObj.id}
+                          setWork={setWork}
+                          work={work}
+                          workObj={workObj}
+                          emp={emp}
+                        />
+                      );
+                    })}
+                  </>
+                }
               />
               <Route
                 path={"employee/create"}

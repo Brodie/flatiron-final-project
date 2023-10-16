@@ -77,7 +77,7 @@ function WorkCard({ workObj, setWork, work, user, emp }) {
           {workObj.assigned_to.name}
         </p>
       )}
-      <p className="work-info">{workObj.info}</p>
+      <p className="work-info">Client Info: {workObj.info}</p>
       <div className="image-container">
         {workObj.images.map((img) => {
           return (

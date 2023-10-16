@@ -14,9 +14,12 @@ body{
 
 .job-title{
     
-    font-size: 3rem;
+    font-size: 4rem;
     padding-bottom: 2px;
     font-family: 'Back To Nature-Light', sans-serif;
+    margin: auto;
+    margin-left: 275px;
+    padding: 10px
 }
 
 .title-container{
@@ -27,6 +30,29 @@ body{
 
 }
 
+.admin-job-title{
+    font-size: 3rem;
+    padding-bottom: 2px;
+    font-family: 'Back To Nature-Light', sans-serif;
+    color: white;
+    width: 750px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 3px solid black;
+    margin: auto;
+    background-color: #5a6216;
+    align-items: baseline;
+}
+
+
+.select{
+    position: relative;
+    top: 0;
+    right: 0;
+
+}
+
+
 .admin{
     background-color: black;
     display: flex;
@@ -35,6 +61,7 @@ body{
     width: 750px;
     margin: auto;
 }
+
 
 .card-container{
     margin-top: 10px;
@@ -63,6 +90,16 @@ button:hover{
 @media (max-width: 700px) {
     .title-container, .admin, button {
         width: 100%; 
+    }
+    
+    /* admin-job-title mobile css */
+    .admin-job-title{
+        margin: auto;
+        width: 100%;
+    }
+
+    .job-title{
+        margin: auto;
     }
 
     .title-container {
