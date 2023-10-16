@@ -27,6 +27,19 @@ body{
 
 }
 
+.admin-job-title{
+    font-size: 3rem;
+    padding-bottom: 2px;
+    font-family: 'Back To Nature-Light', sans-serif;
+    color: white;
+    width: 750px;
+    display: flex;
+    justify-content: center;
+    border-bottom: 3px solid black;
+    margin: auto;
+    background-color: #5a6216;
+}
+
 .admin{
     background-color: black;
     display: flex;

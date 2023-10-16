@@ -35,7 +35,23 @@ function App() {
         return workObj.assigned_to.id === emp.id;
       })
     : [];
-
+  const filteredWork = (e) => {
+    if (e.target.value === "completed") {
+      setWork(
+        work.filter((workObj) => {
+          return workObj.completed === true;
+        })
+      );
+    } else if (e.target.value === "incomplete") {
+      setWork(
+        work.filter((workObj) => {
+          return workObj.completed === false;
+        })
+      );
+    } else {
+      setWork(work);
+    }
+  };
   useEffect(() => {
     fetch("/work_order").then((res) => {
       res.json().then((works) => {
@@ -148,17 +164,32 @@ function App() {
             <>
               <Route
                 path={"work_order/all"}
-                element={work.map((workObj) => {
-                  return (
-                    <WorkCard
-                      key={workObj.id}
-                      setWork={setWork}
-                      work={work}
-                      workObj={workObj}
-                      emp={emp}
-                    />
-                  );
-                })}
+                element={
+                  <>
+                    <div>
+                      <h1 className="admin-job-title">All Jobs</h1>
+                      <div>
+                        <select type="dropdown" onChange={filteredWork}>
+                          <option value="all">All</option>
+                          <option value="completed">Completed</option>
+                          <option value="incomplete">Incomplete</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {work.map((workObj) => {
+                      return (
+                        <WorkCard
+                          key={workObj.id}
+                          setWork={setWork}
+                          work={work}
+                          workObj={workObj}
+                          emp={emp}
+                        />
+                      );
+                    })}
+                  </>
+                }
               />
               <Route
                 path={"employee/create"}
